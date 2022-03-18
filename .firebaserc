@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mmm-messenger": {
+      "hosting": {
+        "mmm-messenger": [
+          "mmm-messenger"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mmm-messenger"
+  }
+}
