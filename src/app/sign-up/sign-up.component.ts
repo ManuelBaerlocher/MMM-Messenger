@@ -9,14 +9,13 @@ export function passwordsMatchValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-
     if (password && confirmPassword && password !== confirmPassword) {
       return {
         passwordsDontMatch: true
       }
+    } else {
+      return null;
     }
-
-    return null;
   };
 }
 
@@ -69,7 +68,7 @@ export class SignUpComponent implements OnInit {
         error: ({ message }) => `${message}`
       })
     ).subscribe(() => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['home']);
     })
   }
 

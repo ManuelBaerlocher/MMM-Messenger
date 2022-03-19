@@ -36,17 +36,17 @@ export class LoginComponent implements OnInit {
   submit() {
     if (!this.loginForm.valid) {
       return;
-    }
-
-    const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).pipe(
-      this.toast.observe({
-        success: 'Logged in successfully',
-        loading: 'Loagging in...',
-        error: 'There was an error'
+    } else {
+      const { email, password } = this.loginForm.value;
+      this.authService.login(email, password).pipe(
+        this.toast.observe({  // toast = Erorr Messages Service to see what's happening \\            
+          success: 'Logged in successfully',
+          loading: 'Loagging in...',
+          error: 'There was an error'
+        })
+      ).subscribe(() =>{
+        this.router.navigate(['home']);
       })
-    ).subscribe(() =>{
-      this.router.navigate(['']);
-    })
+    }
   }
 }
