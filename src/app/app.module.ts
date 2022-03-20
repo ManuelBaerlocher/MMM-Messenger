@@ -11,6 +11,8 @@ import { HomeComponent } from './home/home.component';
 // Material Design \\
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -42,6 +44,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
     // Material Design \\
     MatIconModule,
     MatToolbarModule,
+    MatTooltipModule,
+    MatSidenavModule,
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
