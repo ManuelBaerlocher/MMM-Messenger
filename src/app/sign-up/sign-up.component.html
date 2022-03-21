@@ -4,28 +4,31 @@
     </div>
     <h1 class="center">M³ Messenger</h1>
     <form [formGroup]="signUpForm" (ngSubmit)="submit()">
-        <mat-form-field>
-            <input matInput placeholder="Name" formControlName="name">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
             <mat-error *ngIf="name?.errors?.['required']">Name is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Email addres" formControlName="email" type="email">
+        <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" type="email">
             <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
             <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Password" formControlName="password" type="password">
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password">
             <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
         </mat-form-field>
-        
 
-        <mat-form-field>
-            <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password">
+        <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="confirmPassword" type="password">
             <mat-error *ngIf="confirmPassword?.errors?.['required']">Confirm is required</mat-error>
-        </mat-form-field>        
-        <!-- <mat-error *ngIf="signUpForm.errors?.[passwordsDontMatch]">Passwords should match !</mat-error> -->
+        </mat-form-field>
 
         <div class="center mt-16"><button mat-raised-button color="primary" type="submit">Sign Up</button></div>
         <span class="center mt-16">Already have an Account<a routerLink="" class="sign-up-link">Login</a></span>
