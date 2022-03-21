@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { AppComponent } from '../app.component';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
         })
       ).subscribe(() =>{
         this.router.navigate(['home']);
+        this.authService.loggedin = true;
       })
     }
   }
