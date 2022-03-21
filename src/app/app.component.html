@@ -1,3 +1,31 @@
-<div class="background"> <!-- class="background center" -->
-    <router-outlet></router-outlet>
-</div>
+<mat-drawer-container class="mat-drawer-container" autosize>
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+        <div class="logo-container center">
+            <img src="assets/img/Logo.png" class="mr-16">
+            <h2>M³ Messenger</h2>
+        </div>
+
+        <ul>
+            <li routerLink="/home">
+                <mat-icon>add</mat-icon> Test
+            </li>
+            <li>
+                <mat-icon>add</mat-icon> Test
+            </li>
+        </ul>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <mat-icon class="menu-icon mr-16" (click)="drawer.toggle()">menu</mat-icon>
+                <span>M³ Messenger</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+
+    <div class="router-container">
+        <router-outlet></router-outlet>
+    </div>
+
+</mat-drawer-container>
