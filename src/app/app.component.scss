@@ -29,10 +29,11 @@
 mat-toolbar, mat-toolbar-row {
     min-height: 56px;
     height: 56px;
-    position: fixed;
+
 }
 
 mat-toolbar-row {
+    min-width: calc(100% - 300px) !important;
     display: flex;
     justify-content: space-between;
 }
@@ -61,6 +62,15 @@ ul {
     }
 }
 
+.profile-img-icon {
+    height: 32px;
+    width: 32px;
+    margin-right: 8px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 100%;
+}
+
 .router-container {
     height: calc(100vh - 56px);
     display: flex;
@@ -68,7 +78,6 @@ ul {
     align-items: center;
     padding-left: 56px;
     padding-right: 56px;
-    margin-top: 56px;
 }
 
 h3{
