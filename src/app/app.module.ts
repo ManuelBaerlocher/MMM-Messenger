@@ -14,19 +14,23 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
 // Material Design End\\
 
 // Angular Firebase \\
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 // Angular Firebase End\\
 
 import { HotToastModule } from '@ngneat/hot-toast';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -34,7 +38,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -47,16 +52,19 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatTooltipModule,
     MatSidenavModule,
     MatInputModule,
+    MatMenuModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatListModule,
     // Material Design End\\
 
     // Angular Firebase \\
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    // provideFirestore(() => getFirestore()), Look if wee need
+    provideStorage(() => getStorage()),
     // Angular Firebase End\\
 
     HotToastModule.forRoot(), // Erorr Messages Service to see what's happening \\
