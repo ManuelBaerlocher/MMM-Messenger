@@ -15,24 +15,24 @@ export class ProfileComponent implements OnInit {
   user$ = this.authService.currentUser$;
 
   constructor(
-    private authService: AuthenticationService, 
-    private imageUploadService: ImageUploadService, 
+    private authService: AuthenticationService,
+    private imageUploadService: ImageUploadService,
     private toast: HotToastService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  uploadImage(event:any, user: User) {
-    this.imageUploadService.uploadImage(event.target.files[0], `images/profile/${user.uid}`).pipe(
-      this.toast.observe(
-        {
+  uploadImage(event: any, user: User) {
+    this.imageUploadService.uploadImage(event.target.files[0], `images/profile/${user.uid}`)
+    .pipe(
+      this.toast.observe({
           loading: 'Image is Uploading',
           success: 'Image Uploaded',
-          error: 'There was an error while Uploading this Image'
+          error: 'There was an error while Uploading this Image',
         }
       ),
-      concatMap((photoURL) => this.authService.updateProfileData({photoURL}))
+      concatMap((photoURL) => this.authService.updateProfileData({ photoURL }))
     ).subscribe();
   }
 }

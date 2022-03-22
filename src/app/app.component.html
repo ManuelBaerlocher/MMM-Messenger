@@ -1,6 +1,6 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
 
-    <mat-drawer #drawer class="sidenav" [opened]="loggedin" mode="side">
+    <mat-drawer #drawer class="sidenav" [opened]="this.authService.loggedin" mode="side">
         <div class="logo-container center">
             <img src="assets/img/Logo.png" class="mr-16">
             <h2>M³ Messenger</h2>

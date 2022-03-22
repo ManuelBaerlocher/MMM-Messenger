@@ -27,11 +27,11 @@ export class AuthenticationService {
     const user = this.auth.currentUser;
     return of(user).pipe(
       concatMap(user => {
-        if(!user) throw new Error('Not Authenticated')
+        if(!user) throw new Error('Not Authenticated');
 
         return updateProfile(user, profileData);
       })
-    )
+    );
   }
 
   logout() {
