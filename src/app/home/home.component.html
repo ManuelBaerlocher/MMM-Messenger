@@ -1,5 +1,2 @@
-<<<<<<< HEAD
-=======
-<h3 class="text-center">Willkommen beim M³ - Messenger</h3>
-<p>Wähle links den Channel in dem du schreiben möchtest</p>
->>>>>>> 56b2fd6277901cf4a841661624bcc6ad91d0ebc6
+<h1 *ngIf="user$ | async as user" class="text-center">Willkommen beim M³ - Messenger {{ user.displayName }}</h1>
+<p style="text-align: center;">Wähle links den Channel in dem du schreiben möchtest</p>

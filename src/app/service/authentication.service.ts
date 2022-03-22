@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Auth, authState, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { createUserWithEmailAndPassword, updateProfile, UserInfo } from 'firebase/auth';
 import { concatMap, from, Observable, of, switchMap } from 'rxjs';
-import { AppComponent } from './app.component';
 
 @Injectable({
   providedIn: 'root'

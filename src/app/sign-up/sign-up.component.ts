@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../service/authentication.service';
 
 
 export function passwordsMatchValidator(): ValidatorFn {

@@ -29,8 +29,9 @@
             <input matInput formControlName="confirmPassword" type="password">
             <mat-error *ngIf="confirmPassword?.errors?.['required']">Confirm is required</mat-error>
         </mat-form-field>
+        <mat-error *ngIf="signUpForm?.errors?.['passwordsDontMatch']">Passwords should match</mat-error>
 
         <div class="center mt-16"><button mat-raised-button color="primary" type="submit">Sign Up</button></div>
-        <span class="center mt-16">Already have an Account<a routerLink="" class="sign-up-link">Login</a></span>
+        <span class="center mt-16">Already have an Account<a routerLink="login" class="sign-up-link">Login</a></span>
     </form>
 </div>
