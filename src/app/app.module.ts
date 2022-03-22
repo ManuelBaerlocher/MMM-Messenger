@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
 // Material Design End\\
 
 // Angular Firebase \\
@@ -50,6 +51,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatListModule,
     // Material Design End\\
 
     // Angular Firebase \\
