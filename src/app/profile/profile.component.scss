@@ -1,0 +1,16 @@
+.profile-img {
+    position: relative;
+    img {
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 100%;
+    }
+
+    button {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+}

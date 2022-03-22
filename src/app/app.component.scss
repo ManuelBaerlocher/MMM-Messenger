@@ -32,6 +32,11 @@ mat-toolbar, mat-toolbar-row {
     position: fixed;
 }
 
+mat-toolbar-row {
+    display: flex;
+    justify-content: space-between;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
