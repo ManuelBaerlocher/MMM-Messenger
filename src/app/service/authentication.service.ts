@@ -35,6 +35,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.loggedin = false;
     return from(this.auth.signOut());
   }
 }
