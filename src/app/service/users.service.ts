@@ -20,7 +20,7 @@ export class UsersService {
         if (!user?.uid) {
           return of(null);
         }
-
+        this.authService.loggedin = true;
         const ref = doc(this.firestore, 'users', user?.uid);
         return docData(ref) as Observable<ProfileUser>;
       })
