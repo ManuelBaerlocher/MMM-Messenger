@@ -21,11 +21,6 @@ export class AppComponent {
     private userService: UsersService,  
   ) { }
 
-  // ngOnInit(): void {
-  //   console.log('fdsas', this.user$);
-  // }
-  
-
   logout() {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['login']);
