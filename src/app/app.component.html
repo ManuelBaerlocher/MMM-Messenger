@@ -1,6 +1,6 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
 
-    <mat-drawer #drawer class="sidenav" mode="side">
+    <mat-drawer #drawer class="sidenav" mode="side" [opened]="this.authService.loggedin">
         <div class="logo-container center">
             <img src="assets/img/Logo.png" class="mr-16">
             <h2>M³ Messenger</h2>
@@ -19,7 +19,7 @@
         <h3 class="mt-16 text-center">Direktnachrichten</h3>
         <ul>
             <mat-nav-list>
-                <a mat-list-item href="..." *ngFor="let user of userlist"> {{ user }} </a>
+                <a mat-list-item href="..." *ngFor="let user of this.users"> {{ user.displayName }} </a>
             </mat-nav-list>
         </ul>
     </mat-drawer>
@@ -28,7 +28,8 @@
         <mat-toolbar color="primary">
             <mat-toolbar-row>
                 <div style="display: flex; align-items: center;">
-                    <mat-icon *ngIf="user$ | async as user" class="menu-icon mr-16" (click)="drawer.toggle()">menu</mat-icon>
+                    <mat-icon *ngIf="user$ | async as user" class="menu-icon mr-16" (click)="drawer.toggle()">menu
+                    </mat-icon>
                     <span>M³ Messenger</span>
                 </div>
                 <ng-container *ngIf="user$ | async as user; else loginButton">
@@ -54,8 +55,12 @@
     </div>
 
     <mat-menu #userMenu="matMenu">
-        <button mat-menu-item routerLink="/profile"><mat-icon>settings</mat-icon>Profile</button>
-        <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Logout</button>
+        <button mat-menu-item routerLink="/profile">
+            <mat-icon>settings</mat-icon>Profile
+        </button>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>Logout
+        </button>
     </mat-menu>
 
 </mat-drawer-container>
