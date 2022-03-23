@@ -1,6 +1,6 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
 
-    <mat-drawer #drawer class="sidenav" [opened]="this.authService.loggedin" mode="side">
+    <mat-drawer #drawer class="sidenav" mode="side">
         <div class="logo-container center">
             <img src="assets/img/Logo.png" class="mr-16">
             <h2>M³ Messenger</h2>
@@ -28,10 +28,10 @@
         <mat-toolbar color="primary">
             <mat-toolbar-row>
                 <div style="display: flex; align-items: center;">
-                    <mat-icon *ngIf="authService.currentUser$ | async as user" class="menu-icon mr-16" (click)="drawer.toggle()">menu</mat-icon>
+                    <mat-icon *ngIf="user$ | async as user" class="menu-icon mr-16" (click)="drawer.toggle()">menu</mat-icon>
                     <span>M³ Messenger</span>
                 </div>
-                <ng-container *ngIf="authService.currentUser$ | async as user; else loginButton">
+                <ng-container *ngIf="user$ | async as user; else loginButton">
                     <button mat-button [mat-menu-trigger-for]="userMenu">
                         <img class="profile-img-icon" [src]="user.photoURL ?? 'assets/img/user-placeholder.png'">
                         {{ user.displayName }}

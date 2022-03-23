@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { switchMap } from 'rxjs';
+import { ProfileUser } from './../models/user-profile';
 import { AuthenticationService } from '../service/authentication.service';
+import { UsersService } from '../service/users.service';
 
 
 export function passwordsMatchValidator(): ValidatorFn {
@@ -10,9 +13,7 @@ export function passwordsMatchValidator(): ValidatorFn {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
     if (password && confirmPassword && password !== confirmPassword) {
-      return {
-        passwordsDontMatch: true
-      }
+      return { passwordsDontMatch: true }
     } else {
       return null;
     }
@@ -36,14 +37,11 @@ export class SignUpComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private router: Router,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private usersService: UsersService,
   ) { }
 
-  ngOnInit(): void {
-  }
-  get name() {
-    return this.signUpForm.get('name');
-  }
+  ngOnInit(): void { }
 
   get email() {
     return this.signUpForm.get('email');
@@ -57,19 +55,26 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('confirmPassword');
   }
 
+  get name() {
+    return this.signUpForm.get('name');
+  }
+
   submit() {
     if (!this.signUpForm.valid) return;
 
-    const { name, email, password } = this.signUpForm.value;
-    this.authService.signUp(name, email, password).pipe(
-      this.toast.observe({
-        success: 'Congrats! You are all signed up',
-        loading: 'Signing in',
-        error: ({ message }) => `${message}`
-      })
-    ).subscribe(() => {
-      this.router.navigate(['home']);
-    })
-  }
 
+    const { name, email, password } = this.signUpForm.value;
+    this.authService.signUp(email, password)
+      .pipe(
+        switchMap(({ user: { uid } }) =>
+          this.usersService.addUser({ uid, email, displayName: name })),
+        this.toast.observe({
+          success: 'Congrats! You are all signed up',
+          loading: 'Signing in',
+          error: ({ message }) => `${message}`
+        })
+      ).subscribe(() => {
+        this.router.navigate(['home']);
+      })
+  }
 }

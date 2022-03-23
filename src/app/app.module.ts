@@ -63,7 +63,7 @@ import { ProfileComponent } from './profile/profile.component';
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    // provideFirestore(() => getFirestore()), Look if wee need
+    provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     // Angular Firebase End\\
 
