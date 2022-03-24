@@ -1,5 +1,8 @@
 .profile-img {
+    width: 120px;
     position: relative;
+    margin: auto;
+    margin-bottom: 32px;
     img {
         height: 120px;
         width: 120px;
@@ -13,4 +16,8 @@
         right: 0;
         bottom: 0;
     }
+}
+
+.form-container {
+    max-width: 300px;
 }
