@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion'; 
+import {MatDividerModule} from '@angular/material/divider';
 // Material Design End\\
 
 // Angular Firebase \\
@@ -65,6 +66,7 @@ import { MessageComponent } from './message/message.component';
     MatListModule,
     MatCardModule,
     MatExpansionModule,
+    MatDividerModule,
     // Material Design End\\
 
     // Angular Firebase \\
