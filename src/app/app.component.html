@@ -12,19 +12,34 @@
                     <mat-icon>add</mat-icon>
                 </button>
             </li>
-            <mat-nav-list>
-                <a mat-list-item href="..." *ngFor="let channel of channellist"> {{ channel }} </a>
-            </mat-nav-list>
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            channels
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                        <a mat-list-item href="..." *ngFor="let channel of channellist"> {{ channel }} </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion>
         </ul>
-        <h3 class="mt-16 text-center">direct messages</h3>
-        <ul>
-            <mat-nav-list>
-                <a mat-list-item href="..." *ngFor="let user of this.users" routerLink="/message">
-                    <img class="profile-img-icon" [src]="user.photoURL ?? 'assets/img/user-placeholder.png'">{{
-                    user.displayName }}
-                </a>
-            </mat-nav-list>
-        </ul>
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        direct messages
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item href="..." *ngFor="let user of this.users" routerLink="/message">
+                        <img class="profile-img-icon" [src]="user.photoURL ?? 'assets/img/user-placeholder.png'">{{
+                        user.displayName }}
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-accordion>
     </mat-drawer>
 
     <div class="example-sidenav-content">
