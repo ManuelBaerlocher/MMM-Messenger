@@ -72,14 +72,7 @@ ul {
     border-radius: 100%;
 }
 
-.router-container {
-    height: calc(100vh - 56px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 56px;
-    padding-right: 56px;
-}
+
 
 mat-nav-list{
     &:last-child{

@@ -1,12 +1,22 @@
-<mat-card class="input-Container">
+<div class="router-container main-container">
+    <mat-list>
+        <mat-list-item>Message 1</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Message 2</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Message 3</mat-list-item>
+    </mat-list>
 
-    <form class="example-form">
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Message</mat-label>
-            <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
-            <mat-hint align="start"> </mat-hint>
-            <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-        </mat-form-field>
-    </form>
-    <button mat-raised-button color="primary">Send</button>
-</mat-card>
+    <mat-card class="input-Container">
+        <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Message</mat-label>
+                <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+                <mat-hint align="start"> </mat-hint>
+                <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+            </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary">Send</button>
+    </mat-card>
+
+</div>
