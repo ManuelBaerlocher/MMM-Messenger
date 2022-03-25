@@ -16,7 +16,7 @@ export class AppComponent {
   userlist =['User 1', 'User 2'];
 
   constructor(
-    private authService: AuthenticationService, 
+    public authService: AuthenticationService, 
     private router: Router,
     private userService: UsersService,  
   ) { }
