@@ -58,6 +58,10 @@ ul {
         &:focus {
             outline: none;
         }
+        button{
+            height: 40px;
+            width: 40px;
+        }
 
     }
 }
@@ -80,9 +84,6 @@ ul {
     padding-right: 56px;
 }
 
-h3{
-    font-weight: bold;
-}
 mat-nav-list{
     &:last-child{
         margin-bottom:16px;

@@ -7,17 +7,17 @@
         </div>
 
         <ul>
-            <li class=" mt-16 right mb-16">
-                <button mat-fab color="primary" title="Neuen Channel erstellen">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </li>
             <mat-accordion class="example-headers-align" multi>
                 <mat-expansion-panel [expanded]="true">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             channels
                         </mat-panel-title>
+                        <li class=" mt-16 right mb-16">
+                            <button mat-fab color="primary" title="Neuen Channel erstellen">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </li>
                     </mat-expansion-panel-header>
                     <mat-nav-list>
                         <a mat-list-item href="..." *ngFor="let channel of channellist"> {{ channel }} </a>
