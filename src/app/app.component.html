@@ -12,9 +12,9 @@
                     <mat-icon>add</mat-icon>
                 </button>
             </li>
-            <mat-tree>
-                <mat-tree-node mat-list-item href="..." *ngFor="let channel of channellist">{{ channel }}</mat-tree-node>
-            </mat-tree>
+            <mat-nav-list>
+                <a mat-list-item href="..." *ngFor="let channel of channellist"> {{ channel }} </a>
+            </mat-nav-list>
         </ul>
         <h3 class="mt-16 text-center">direct messages</h3>
         <ul>
