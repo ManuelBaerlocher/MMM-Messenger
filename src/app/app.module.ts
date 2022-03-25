@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
 // Material Design End\\
 
 // Angular Firebase \\
@@ -32,6 +33,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './profile/profile.component';
+import { MessageComponent } from './message/message.component';
+
 
 
 @NgModule({
@@ -40,7 +43,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     SignUpComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +62,7 @@ import { ProfileComponent } from './profile/profile.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatListModule,
+    MatCardModule,
     // Material Design End\\
 
     // Angular Firebase \\
