@@ -1,6 +1,14 @@
 <div class="router-container main-container">
     <mat-list>
-        <mat-list-item>Message 1</mat-list-item>
+        <mat-list-item>Message 1
+            <div>
+
+
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni magnam, eligendi qui itaque ratione
+                consectetur expedita facilis, enim eos atque, similique iusto unde molestias dolorum illo sint delectus
+                et beatae?
+            </div>
+        </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>Message 2</mat-list-item>
         <mat-divider></mat-divider>
@@ -16,7 +24,20 @@
                 <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>
         </form>
-        <button mat-raised-button color="primary">Send</button>
+        <div class="send-button">
+            <div>
+                <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
+                    matTooltipHideDelay="100">
+                    <mat-icon>photo</mat-icon>
+
+                </button>
+                <button mat-icon-button color="primary" matTooltip="Add Code" [matTooltipPosition]="position.value"
+                    matTooltipHideDelay="100">
+                    <mat-icon>code</mat-icon>
+                </button>
+            </div>
+            <button mat-raised-button color="primary">Send</button>
+        </div>
     </mat-card>
 
 </div>
