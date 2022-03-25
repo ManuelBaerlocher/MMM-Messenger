@@ -36,6 +36,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './profile/profile.component';
 import { MessageComponent } from './message/message.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -52,6 +53,7 @@ import { MessageComponent } from './message/message.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
 
     // Material Design \\
     MatIconModule,

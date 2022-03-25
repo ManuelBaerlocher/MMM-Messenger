@@ -1,76 +1,43 @@
 <div class="router-container main-container">
     <mat-list>
+        <div *ngFor="let post of posts let i = index">
+            <div class="post-container">
+                <div class="post-left-container">
+                    <img class="user-icon" src='assets/img/user-placeholder.png'>
+                </div>
+                <div class="post-right-container">
+                    <div class="post-head">
+                        <div class="post-head-left">
+                            <div class="post-user">{{ post.user }}</div>
+                            <span class="post-date">{{ post.date }}</span>
+                        </div>
 
-        <div class="post-container">
-            <div class="post-left-container">
-                <img class="user-icon" src='assets/img/user-placeholder.png'>
-            </div>
-            <div>
-                <div class="post-head">
-                    <div class="post-head-left">
-                        <div class="post-user">Manuel Baerlocher</div>
-                        <span class="post-date">25.03.22, 23.06</span>
+                        <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <mat-icon color="primary">question_answer</mat-icon>
+                                <span>Answer</span>
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon color="primary">edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button mat-menu-item (click)="deletePost(i)">
+                                <mat-icon color="primary">delete</mat-icon>
+                                <span>Remove</span>
+                            </button>
+                        </mat-menu>
+
                     </div>
-
-                    <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
-                        <mat-icon>menu</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon color="primary">edit</mat-icon>
-                            <span>Edit</span>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon color="primary">delete</mat-icon>
-                            <span>Remove</span>
-                        </button>
-                    </mat-menu>
-
-                </div>
-                <div>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt quam officia laborum ea quisquam,
-                    voluptatem voluptatibus quis repellat deleniti. Nulla reiciendis eum fugit inventore provident,
-                    corrupti voluptatum iure qui fugiat?
-                </div>
-            </div>
-        </div>
-        <mat-divider></mat-divider>
-
-        <div class="post-container">
-            <div class="post-left-container">
-                <img class="user-icon" src='assets/img/user-placeholder.png'>
-            </div>
-            <div>
-                <div class="post-head">
-                    <div class="post-head-left">
-                        <div class="post-user">Manuel Baerlocher</div>
-                        <span class="post-date">25.03.22, 23.06</span>
+                    <div>
+                        {{ post.message }}
                     </div>
-
-                    <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
-                        <mat-icon>menu</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon color="primary">edit</mat-icon>
-                            <span>Edit</span>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon color="primary">delete</mat-icon>
-                            <span>Remove</span>
-                        </button>
-                    </mat-menu>
-
-                </div>
-                <div>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt quam officia laborum ea quisquam,
-                    voluptatem voluptatibus quis repellat deleniti. Nulla reiciendis eum fugit inventore provident,
-                    corrupti voluptatum iure qui fugiat?
                 </div>
             </div>
+            <mat-divider></mat-divider>
         </div>
-        <mat-divider></mat-divider>
-
     </mat-list>
 
 
@@ -78,7 +45,8 @@
         <form class="example-form">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Message</mat-label>
-                <input matInput #message maxlength="256" placeholder="Ex. I need help with...">
+                <input matInput #message maxlength="256" placeholder="Ex. I need help with..." [(ngModel)]="newmassage"
+                    name="newmassage">
                 <mat-hint align="start"> </mat-hint>
                 <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>
@@ -96,7 +64,7 @@
 
                 </button>
             </div>
-            <button mat-raised-button color="primary">Send</button>
+            <button mat-raised-button color="primary" (click)="newPost()">Send</button>
         </div>
     </mat-card>
 
