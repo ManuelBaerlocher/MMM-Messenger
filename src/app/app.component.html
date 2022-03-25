@@ -19,7 +19,10 @@
         <h3 class="mt-16 text-center">Direktnachrichten</h3>
         <ul>
             <mat-nav-list>
-                <a mat-list-item href="..." *ngFor="let user of this.users"> {{ user.displayName }} </a>
+                <a mat-list-item href="..." *ngFor="let user of this.users" routerLink="/message">
+                    <img class="profile-img-icon" [src]="user.photoURL ?? 'assets/img/user-placeholder.png'">{{
+                    user.displayName }}
+                </a>
             </mat-nav-list>
         </ul>
     </mat-drawer>
