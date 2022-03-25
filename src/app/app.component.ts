@@ -25,7 +25,7 @@ export class AppComponent {
  
 
   constructor(
-    public authService: AuthenticationService,
+    public authService: AuthenticationService, 
     private router: Router,
     private userService: UsersService,
     public firestore: AngularFirestore
