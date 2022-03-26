@@ -6,23 +6,23 @@
             <h2>M³ Messenger</h2>
         </div>
 
-        <ul>
             <mat-accordion class="example-headers-align" multi>
-                <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel [expanded]="true" [disabled]="clickButton" (click)="clickButton=false">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             channels
                         </mat-panel-title>
-                        <button mat-icon-button>
+                        <button mat-icon-button (click)="addChannel()" title="Neuen Channel erstellen">
                             <mat-icon>add</mat-icon>
                         </button>
                     </mat-expansion-panel-header>
+                  
                     <mat-nav-list>
                         <a mat-list-item href="..." *ngFor="let channel of channellist"> {{ channel }} </a>
                     </mat-nav-list>
                 </mat-expansion-panel>
             </mat-accordion>
-        </ul>
+
         <mat-accordion class="example-headers-align" multi>
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -66,9 +66,9 @@
         </mat-toolbar>
     </div>
 
-    <div class="router-container">
-        <router-outlet></router-outlet>
-    </div>
+
+    <router-outlet></router-outlet>
+
 
     <mat-menu #userMenu="matMenu">
         <button mat-menu-item routerLink="/profile">

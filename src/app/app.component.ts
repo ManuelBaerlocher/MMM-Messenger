@@ -24,7 +24,7 @@ export class AppComponent {
 
   items: Observable<any[]>;
   users: any = [];
-
+  clickButton = false;
 
   
 
@@ -54,6 +54,11 @@ export class AppComponent {
     this.authService.logout().subscribe(() => {
       this.router.navigate(['login']);
     })
+  }
+
+  addChannel(){
+    this.clickButton = true;
+    console.log("es funktioniert!");
   }
 
 }

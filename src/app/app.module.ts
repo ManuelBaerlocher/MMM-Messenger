@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion'; 
+import {MatDividerModule} from '@angular/material/divider';
 // Material Design End\\
 
 // Angular Firebase \\
@@ -35,6 +36,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './profile/profile.component';
 import { MessageComponent } from './message/message.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -51,6 +53,7 @@ import { MessageComponent } from './message/message.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
 
     // Material Design \\
     MatIconModule,
@@ -65,6 +68,7 @@ import { MessageComponent } from './message/message.component';
     MatListModule,
     MatCardModule,
     MatExpansionModule,
+    MatDividerModule,
     // Material Design End\\
 
     // Angular Firebase \\
