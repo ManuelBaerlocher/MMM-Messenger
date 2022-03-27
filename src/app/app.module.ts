@@ -37,6 +37,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { ProfileComponent } from './profile/profile.component';
 import { MessageComponent } from './message/message.component';
 import { FormsModule } from '@angular/forms';
+import { ChannelComponent } from './channel/channel.component';
 
 
 
@@ -47,7 +48,8 @@ import { FormsModule } from '@angular/forms';
     SignUpComponent,
     HomeComponent,
     ProfileComponent,
-    MessageComponent
+    MessageComponent,
+    ChannelComponent
   ],
   imports: [
     BrowserModule,
