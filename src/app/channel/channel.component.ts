@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { ActivatedRoute } from '@angular/router';
+import { Channel } from '../models/chanel.class';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { UsersService } from '../service/users.service';
@@ -12,6 +15,10 @@ import { UsersService } from '../service/users.service';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
+
+  channelId: any = '';
+  channel: Channel = new Channel();
+
   user$ = this.userService.currentUserProfile$;
 
   users: any = [];
@@ -25,6 +32,8 @@ export class ChannelComponent implements OnInit {
   constructor(
     public userService: UsersService,
     public authService: AuthenticationService,
+    private route: ActivatedRoute,
+    private firestore: AngularFirestore,
   ) {
 
     this.posts = [
@@ -38,6 +47,20 @@ export class ChannelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(paramMap => {
+      this.channelId = paramMap.get('id');
+      this.getChannel();
+    })
+  }
+
+  getChannel() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .valueChanges()
+      .subscribe((channel: any) => { 
+        this.channel = new Channel(channel);
+      })
   }
 
   newPost() {

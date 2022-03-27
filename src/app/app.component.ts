@@ -30,6 +30,7 @@ export class AppComponent {
   users: any = [];
   clickButton = false;
   channel = new Channel();
+  allChannels: any = [];
 
 
 
@@ -42,15 +43,21 @@ export class AppComponent {
     private userService: UsersService,
     public firestore: AngularFirestore,
     public dialog: MatDialog
-  ) {
+  ) { }
 
-    this
-      .firestore
+  ngOnInit(): void {
+    this.firestore
+      .collection('channels')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allChannels = changes;
+      })
+
+    this.firestore
       .collection('users')
       .valueChanges()
-      .subscribe((tests: any) => {
-        this.users = tests
-        console.log('testManuel', this.users)
+      .subscribe((changes: any) => {
+        this.users = changes;
 
       })
   }
