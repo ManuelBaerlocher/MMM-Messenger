@@ -84,8 +84,7 @@ export class ChannelComponent implements OnInit {
     console.log(this.post)
 
 
-    this.posts.push({ user: 'Max', date: '24.03.22, 21.05 Uhr', message: this.newmassage })
-    console.log('newPost', this.posts, this.user$)
+
 
     this.firestore
       .collection('posts')
@@ -96,8 +95,7 @@ export class ChannelComponent implements OnInit {
   }
 
   deletePost(i) {
-    this.posts.splice(i, 1)
-    console.log('deltePost', i)
+    console.log('post clear')
   }
 
 }
