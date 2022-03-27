@@ -4,8 +4,11 @@ import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
 import { Channel } from '../models/channel.class';
+import { Post } from '../models/post.class';
+import { User } from '../models/user.class';
 
 import { AuthenticationService } from '../service/authentication.service';
+import { UserService } from '../service/user.service';
 import { UsersService } from '../service/users.service';
 
 
@@ -18,8 +21,12 @@ export class ChannelComponent implements OnInit {
 
   channelId: any = '';
   channel: Channel = new Channel();
+  post = new Post();
+  time: Date;
+  allPosts: any = [];
+  ;
 
-  user$ = this.userService.currentUserProfile$;
+  user$ = this.usersService.currentUserProfile$;
 
   users: any = [];
 
@@ -30,18 +37,14 @@ export class ChannelComponent implements OnInit {
   position = new FormControl(this.positionOptions[0]);
 
   constructor(
-    public userService: UsersService,
+    public usersService: UsersService,
     public authService: AuthenticationService,
     private route: ActivatedRoute,
     private firestore: AngularFirestore,
+    public userService: UserService,
   ) {
 
-    this.posts = [
 
-      { user: 'Manuel', date: '25.03.22, 22.05 Uhr', message: 'hallo' },
-      { user: 'Max', date: '24.03.22, 21.05 Uhr', message: 'hallo2' }
-
-    ]
 
 
   }
@@ -50,6 +53,8 @@ export class ChannelComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
       this.getChannel();
+
+      console.log(this.userService.user.id)
     })
   }
 
@@ -58,16 +63,36 @@ export class ChannelComponent implements OnInit {
       .collection('channels')
       .doc(this.channelId)
       .valueChanges()
-      .subscribe((channel: any) => { 
+      .subscribe((channel: any) => {
         this.channel = new Channel(channel);
       })
+
+    this.firestore
+      .collection('posts')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allPosts = changes;
+      })
+
   }
 
   newPost() {
+    // this.post.time = this.time.getTime();
+    this.post.channelId = this.channelId;
+    // this.post.userId = this.users.uid
+
+    console.log(this.post)
+
 
     this.posts.push({ user: 'Max', date: '24.03.22, 21.05 Uhr', message: this.newmassage })
-    console.log('newPost', this.posts)
+    console.log('newPost', this.posts, this.user$)
 
+    this.firestore
+      .collection('posts')
+      .add(this.post.toJSON())
+      .then((result: any) => {
+        console.log('Adding Post finisihed', result)
+      });
   }
 
   deletePost(i) {
