@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 
+
 // Material Design \\
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,6 +23,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion'; 
 import {MatDividerModule} from '@angular/material/divider';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 // Material Design End\\
 
 // Angular Firebase \\
@@ -38,6 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { MessageComponent } from './message/message.component';
 import { FormsModule } from '@angular/forms';
 import { ChannelComponent } from './channel/channel.component';
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 
 
 
@@ -49,7 +52,8 @@ import { ChannelComponent } from './channel/channel.component';
     HomeComponent,
     ProfileComponent,
     MessageComponent,
-    ChannelComponent
+    ChannelComponent,
+    DialogAddChannelComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +75,9 @@ import { ChannelComponent } from './channel/channel.component';
     MatCardModule,
     MatExpansionModule,
     MatDividerModule,
+    MatDialogModule,
+   
+    
     // Material Design End\\
 
     // Angular Firebase \\
