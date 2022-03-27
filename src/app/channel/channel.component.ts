@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
-import { Channel } from '../models/chanel.class';
+import { Channel } from '../models/channel.class';
 
 import { AuthenticationService } from '../service/authentication.service';
 import { UsersService } from '../service/users.service';

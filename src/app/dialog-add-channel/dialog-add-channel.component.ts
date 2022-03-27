@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Channel } from '../models/chanel.class';
+import { Channel } from '../models/channel.class';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({

@@ -4,7 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
-import { Channel } from './models/chanel.class';
+import { Channel } from './models/channel.class';
+
 
 
 
