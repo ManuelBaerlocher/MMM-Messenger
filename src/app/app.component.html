@@ -49,8 +49,9 @@
                     <span>M³ Messenger</span>
                 </div>
                 <ng-container *ngIf="user$ | async as user; else loginButton">
-                    <button mat-button [mat-menu-trigger-for]="userMenu">
+                    <button mat-button [mat-menu-trigger-for]="userMenu" style="position: relative;">
                         <img class="profile-img-icon" [src]="user.photoURL ?? 'assets/img/user-placeholder.png'">
+                        <img src="assets/img/icons8-online-12.png" style="position: absolute; left: 35px; bottom: 0px;">
                         {{ user.displayName }}
                         <mat-icon>expand_more</mat-icon>
                     </button>
