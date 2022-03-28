@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { Channel } from './models/channel.class';
+
+
 
 
 
@@ -25,26 +30,35 @@ export class AppComponent {
   items: Observable<any[]>;
   users: any = [];
   clickButton = false;
+  channel = new Channel();
+  allChannels: any = [];
 
-  
+
 
   channellist = ['Channel 1', 'Channel 2'];
- 
+
 
   constructor(
-    public authService: AuthenticationService, 
+    public authService: AuthenticationService,
     private router: Router,
     private userService: UsersService,
-    public firestore: AngularFirestore
-  ) {
+    public firestore: AngularFirestore,
+    public dialog: MatDialog
+  ) { }
 
-    this
-      .firestore
+  ngOnInit(): void {
+    this.firestore
+      .collection('channels')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allChannels = changes;
+      })
+
+    this.firestore
       .collection('users')
       .valueChanges()
-      .subscribe((tests: any) => {
-        this.users = tests
-        console.log('testManuel', this.users)
+      .subscribe((changes: any) => {
+        this.users = changes;
 
       })
   }
@@ -56,9 +70,10 @@ export class AppComponent {
     })
   }
 
-  addChannel(){
-    this.clickButton = true;
-    console.log("es funktioniert!");
+  openDialog() {
+    this.dialog.open(DialogAddChannelComponent)
   }
+
+
 
 }

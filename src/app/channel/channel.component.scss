@@ -1,0 +1,108 @@
+.example-form {
+    min-width: 150px;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .message-head {
+    display: flex;
+    margin: 8px;
+    
+    img{
+      
+      margin-right: 12px;
+      
+    }
+  
+    h1 {
+      margin: 0;
+      font-weight: bold;
+    }
+  }
+  
+  mat-list {
+    overflow: auto;
+  }
+  
+  .post-date {
+    font-size: 11px;
+  }
+  
+  .send-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  
+  .menu-button {
+    visibility: hidden;
+  }
+  .post-container {
+    display: flex;
+  
+    padding: 16px;
+  
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+      transition: ease-in-out 250ms;
+  
+      .menu-button {
+        visibility: visible;
+      }
+    }
+  }
+  
+  .post-right-container {
+    width: 100%;
+  }
+  
+  .post-head {
+    display: flex;
+    margin-bottom: 8px;
+    justify-content: space-between;
+  }
+  
+  mat-list-item {
+    height: auto !important;
+  }
+  
+  .post-left-container {
+    margin-right: 16px;
+  }
+  
+  .user-icon {
+    height: 40px;
+    width: 40px;
+  
+    object-fit: cover;
+    object-position: center;
+    border-radius: 4px;
+  }
+  .post-content {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .post-user {
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  
+  .input-Container {
+    margin: 16px;
+  }
+  
+  .post-head-left {
+    display: flex;
+  }
+  
