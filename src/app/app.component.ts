@@ -6,10 +6,6 @@ import { Observable } from 'rxjs';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Channel } from './models/channel.class';
 
-
-
-
-
 import { AuthenticationService } from './service/authentication.service';
 
 import { UsersService } from './service/users.service';
@@ -33,9 +29,11 @@ export class AppComponent {
   channel = new Channel();
   allChannels: any = [];
 
+ 
+  
 
 
-  channellist = ['Channel 1', 'Channel 2'];
+  
 
 
   constructor(
@@ -47,6 +45,12 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
+   
+
+    
+
+
+
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
@@ -59,8 +63,9 @@ export class AppComponent {
       .valueChanges()
       .subscribe((changes: any) => {
         this.users = changes;
-
       })
+
+
   }
 
 
@@ -72,7 +77,11 @@ export class AppComponent {
 
   openDialog() {
     this.dialog.open(DialogAddChannelComponent)
+    
+    console.log(this.authService.currentUserId)
   }
+
+
 
 
 
