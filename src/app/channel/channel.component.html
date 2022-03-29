@@ -33,8 +33,7 @@
                                     <mat-icon color="primary">edit</mat-icon>
                                     <span>Edit</span>
                                 </button>
-                                <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId"
-                                    (click)="deletePost(i)">
+                                <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId" (click)="deletePost(i)">
                                     <mat-icon color="primary">delete</mat-icon>
                                     <span>Remove</span>
                                 </button>

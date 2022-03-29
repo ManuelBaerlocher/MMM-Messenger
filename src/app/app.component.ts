@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Channel } from './models/channel.class';
 
+
 import { AuthenticationService } from './service/authentication.service';
 
 import { UsersService } from './service/users.service';
@@ -28,6 +29,10 @@ export class AppComponent {
   clickButton = false;
   channel = new Channel();
   allChannels: any = [];
+  allUsers: any = [];
+
+
+
 
 
 
@@ -55,6 +60,14 @@ export class AppComponent {
         this.users = changes;
       })
 
+    this.firestore
+      .collection('users')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allUsers = changes;
+        console.log(this.allUsers)
+      })
+
 
   }
 
@@ -67,6 +80,10 @@ export class AppComponent {
 
   openDialog() {
     this.dialog.open(DialogAddChannelComponent)
+  }
+
+  deleteChannel() {
+    console.log('delete Channel')
   }
 
 }

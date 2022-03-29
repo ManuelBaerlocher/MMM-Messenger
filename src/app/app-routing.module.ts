@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'signUp', component: SignUpComponent, ...canActivate(redirectToHome) },
   { path: 'home', component: HomeComponent, ...canActivate(redirectToLogin) },
   { path: 'profile', component: ProfileComponent, ...canActivate(redirectToLogin) },
-  { path: 'message', component: MessageComponent, ...canActivate(redirectToLogin) },
+  { path: 'message/:id', component: MessageComponent, ...canActivate(redirectToLogin) },
   { path: 'channel/:id', component: ChannelComponent, ...canActivate(redirectToLogin) },
 
 ];
