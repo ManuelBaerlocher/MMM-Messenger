@@ -29,11 +29,6 @@ export class AppComponent {
   channel = new Channel();
   allChannels: any = [];
 
- 
-  
-
-
-  
 
 
   constructor(
@@ -45,11 +40,6 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-   
-
-    
-
-
 
     this.firestore
       .collection('channels')
@@ -77,12 +67,6 @@ export class AppComponent {
 
   openDialog() {
     this.dialog.open(DialogAddChannelComponent)
-    
-    console.log(this.authService.currentUserId)
   }
-
-
-
-
 
 }
