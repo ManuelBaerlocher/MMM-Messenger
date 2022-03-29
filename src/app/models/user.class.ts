@@ -3,6 +3,7 @@ export class User {
     id: string;
     email: string;
     isOnline: boolean;
+  length: number;
 
 
     constructor(obj?: any) {

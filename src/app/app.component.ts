@@ -7,9 +7,6 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { Channel } from './models/channel.class';
 
 
-
-
-
 import { AuthenticationService } from './service/authentication.service';
 
 import { UsersService } from './service/users.service';
@@ -32,10 +29,11 @@ export class AppComponent {
   clickButton = false;
   channel = new Channel();
   allChannels: any = [];
+  allUsers: any = [];
 
 
 
-  channellist = ['Channel 1', 'Channel 2'];
+
 
 
   constructor(
@@ -47,6 +45,7 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
+
     this.firestore
       .collection('channels')
       .valueChanges({ idField: 'customIdName' })
@@ -59,8 +58,17 @@ export class AppComponent {
       .valueChanges()
       .subscribe((changes: any) => {
         this.users = changes;
-
       })
+
+    this.firestore
+      .collection('users')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allUsers = changes;
+        console.log(this.allUsers)
+      })
+
+
   }
 
 
@@ -74,6 +82,8 @@ export class AppComponent {
     this.dialog.open(DialogAddChannelComponent)
   }
 
-
+  deleteChannel() {
+    console.log('delete Channel')
+  }
 
 }

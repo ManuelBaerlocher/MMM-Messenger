@@ -26,10 +26,10 @@
     }
 }
 
-mat-toolbar, mat-toolbar-row {
+mat-toolbar,
+mat-toolbar-row {
     min-height: 56px;
     height: 56px;
-
 }
 
 mat-toolbar-row {
@@ -58,8 +58,6 @@ ul {
         &:focus {
             outline: none;
         }
-      
-
     }
 }
 
@@ -72,22 +70,27 @@ ul {
     border-radius: 100%;
 }
 
+mat-nav-list {
+    &:last-child {
+        margin-bottom: 16px;
+    }
 
-
-mat-nav-list{
-    &:last-child{
-        margin-bottom:16px;
+    td {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        flex-direction: row;
     }
 }
 
-mat-expansion-panel{
-    button{
+mat-expansion-panel {
+    button {
         height: 40px;
         width: 40px;
         margin-right: 16px;
-        padding:0;
+        padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-}
+    }
 }

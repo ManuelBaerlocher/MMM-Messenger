@@ -12,14 +12,18 @@
                     <mat-panel-title>
                         channels
                     </mat-panel-title>
-                    <button mat-icon-button (click)="openDialog()" matTooltip="Add new Channel">
-                        <mat-icon>add</mat-icon>
-                    </button>
+
                 </mat-expansion-panel-header>
 
                 <mat-nav-list>
-                    <a mat-list-item *ngFor="let channel of allChannels" [routerLink]="['/channel/' + channel.customIdName]">
-                        <td>{{ channel.name }}
+                    <a mat-list-item *ngFor="let channel of allChannels"
+                        [routerLink]="['/channel/' + channel.customIdName]">
+                        <td>
+                            <div>{{ channel.name }}</div>
+                            <div><button mat-menu-item (click)="deleteChannel()">
+                                    <mat-icon color="primary">delete</mat-icon>
+                                </button>
+                            </div>
                     </a>
                 </mat-nav-list>
             </mat-expansion-panel>
@@ -33,7 +37,8 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-nav-list>
-                    <a mat-list-item href="..." *ngFor="let user of this.users" routerLink="/message">
+                    <a mat-list-item *ngFor="let user of this.allUsers" [routerLink]="['/message/' + user.customIdName]">
+
                         <img class="profile-img-icon" [src]="user.photoURL ?? 'assets/img/user-placeholder.png'">{{
                         user.displayName }}
                     </a>
