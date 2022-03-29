@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
+import { user } from 'rxfire/auth';
 import { Channel } from '../models/channel.class';
 import { Post } from '../models/post.class';
 import { User } from '../models/user.class';
@@ -18,6 +19,7 @@ import { UsersService } from '../service/users.service';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
+  user$ = this.usersService.currentUserProfile$;
 
   channelId: any = '';
   channel: Channel = new Channel();
@@ -25,8 +27,6 @@ export class ChannelComponent implements OnInit {
   time: Date;
   allPosts: any = [];
   ;
-
-  user$ = this.usersService.currentUserProfile$;
 
   users: any = [];
 
@@ -40,7 +40,7 @@ export class ChannelComponent implements OnInit {
     public usersService: UsersService,
     public authService: AuthenticationService,
     private route: ActivatedRoute,
-    private firestore: AngularFirestore,
+    public firestore: AngularFirestore,
     public userService: UserService,
   ) {
 
@@ -55,6 +55,7 @@ export class ChannelComponent implements OnInit {
       this.getChannel();
 
       console.log(this.userService.user.id)
+      
     })
   }
 
@@ -73,14 +74,12 @@ export class ChannelComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allPosts = changes;
       })
-
   }
 
   newPost() {
     // this.post.time = this.time.getTime();
     this.post.channelId = this.channelId;
-    // this.post.userId = this.users.uid
-
+    // this.post.userId = this.user.uid
     console.log(this.post)
 
 
