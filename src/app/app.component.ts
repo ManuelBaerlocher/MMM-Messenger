@@ -47,7 +47,8 @@ export class AppComponent {
   ngOnInit(): void {
 
     this.firestore
-      .collection('channels')
+      .collection('channels', ref =>
+        ref.orderBy('nameCase', 'asc'))
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;

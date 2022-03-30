@@ -50,7 +50,8 @@ export class ChannelComponent implements OnInit {
       })
 
     this.firestore
-      .collection('posts')
+      .collection('posts', ref =>
+        ref.orderBy('time', 'asc'))
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allPosts = changes;

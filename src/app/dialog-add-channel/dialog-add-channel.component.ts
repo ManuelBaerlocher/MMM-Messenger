@@ -21,15 +21,12 @@ export class DialogAddChannelComponent implements OnInit {
   }
 
   saveChannel() {
-    
-    console.log('current Channel', this.channel)
+    this.channel.nameCase = this.channel.name.toLowerCase();
 
-   
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
-      .then((result: any) => {
-        console.log('Adding Channel finisihed', result)
+      .then(() => {
         this.dialogRef.close();
       });
   }
