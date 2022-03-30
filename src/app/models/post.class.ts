@@ -1,5 +1,4 @@
 export class Post {
-    channelId: string;
     userId: string;
     userName: string;
     userImg: string;
@@ -12,7 +11,6 @@ export class Post {
 
 
     constructor(obj?: any) {
-        this.channelId = obj ? obj.channelId : '';
         this.userId = obj ? obj.userId : '';
         this.userName = obj ? obj.userName : '';
         this.userImg = obj ? obj.userImg : '';
@@ -25,7 +23,6 @@ export class Post {
 
     public toJSON() {
         return {
-            channelId: this.channelId,
             userId: this.userId,
             userName: this.userName,
             userImg: this.userImg,

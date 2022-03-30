@@ -85,6 +85,7 @@ export class MessageComponent implements OnInit {
 
     
     this.getChat()
+    this.newChat()
   }
 
   newChat() {

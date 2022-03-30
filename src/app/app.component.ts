@@ -32,7 +32,7 @@ export class AppComponent {
   allUsers: any = [];
 
 
-
+  allMessages: any = [];
 
 
 
@@ -67,6 +67,15 @@ export class AppComponent {
       .subscribe((changes: any) => {
         this.allUsers = changes;
         console.log(this.allUsers)
+      })
+
+
+    this.firestore
+      .collection('tests')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allMessages = changes;
+        console.log(this.allMessages)
       })
 
 

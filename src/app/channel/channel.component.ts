@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
-import { user } from 'rxfire/auth';
 import { Channel } from '../models/channel.class';
 import { Post } from '../models/post.class';
 import { AuthenticationService } from '../service/authentication.service';
@@ -16,7 +15,6 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
-  // user$ = this.usersService.currentUserProfile$;
 
   channelId: any = '';
   channel: Channel = new Channel();
@@ -37,7 +35,21 @@ export class ChannelComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
       this.getChannel();
+      this.getPost();
     })
+
+  }
+
+  getPost() {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .collection('posts', ref =>
+        ref.orderBy('time', 'asc'))
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allPosts = changes;;
+      })
   }
 
   getChannel() {
@@ -48,30 +60,18 @@ export class ChannelComponent implements OnInit {
       .subscribe((channel: any) => {
         this.channel = new Channel(channel);
       })
-
-    this.firestore
-      .collection('posts', ref =>
-        ref.orderBy('time', 'asc'))
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.allPosts = changes;
-      })
   }
 
   newPost() {
-    this.post.channelId = this.channelId;
     this.post.userId = this.authService.currentUserId
     this.checkUser();
     this.checkDate();
 
     this.firestore
+      .collection('channels')
+      .doc(this.channelId)
       .collection('posts')
-      .add(this.post.toJSON())
-      .then((result: any) => {
-        console.log('Adding Post finisihed', result)
-      });
-
-    console.log(this.post)
+      .add(this.post.toJSON());
   }
 
   checkUser() {
@@ -98,11 +98,12 @@ export class ChannelComponent implements OnInit {
     const formatDate = new Intl.DateTimeFormat("de", {
       day: "2-digit",
       month: "2-digit",
-      year: "numeric",
+      year: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
+      second: "2-digit",
     });
-    console.log(formatDate.format(new Date()))
+
     this.post.time = formatDate.format(new Date())
   }
 
