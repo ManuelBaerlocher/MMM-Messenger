@@ -5,10 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Channel } from './models/channel.class';
-
-
 import { AuthenticationService } from './service/authentication.service';
-
 import { UsersService } from './service/users.service';
 
 
@@ -41,7 +38,7 @@ export class AppComponent {
     private router: Router,
     private userService: UsersService,
     public firestore: AngularFirestore,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -66,16 +63,14 @@ export class AppComponent {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allUsers = changes;
-        console.log(this.allUsers)
       })
 
 
     this.firestore
-      .collection('tests')
+      .collection('users')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allMessages = changes;
-        console.log(this.allMessages)
       })
 
 
