@@ -196,7 +196,7 @@ export class MessageComponent implements OnInit {
 
       } else {
         console.log('kein Treffer ', this.chatFound, ' chatId', this.chatId);
-        // this.newChat()
+        this.newChat()
       }
     }
   }
