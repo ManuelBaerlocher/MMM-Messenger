@@ -3,23 +3,26 @@
 
     <mat-list>
         <div class="message-head">
-            <img class="user-icon" src='assets/img/user-placeholder.png'>
-            <h1>Manuel Baerlocher</h1>
+
+            <h1># Test Chat </h1>
 
         </div>
         <mat-divider></mat-divider>
-        <div *ngFor="let post of posts let i = index">
+        <span *ngIf="this.allPosts == 0">
+            <h2>There is no post here yet...</h2>
+        </span>
+        <div *ngFor="let post of allPosts let i = index">
+
             <div class="post-container">
                 <div class="post-left-container">
-                    <img class="user-icon" src='assets/img/user-placeholder.png'>
+                    <img class="user-icon" src='{{ post.userImg }}'>
                 </div>
                 <div class="post-right-container">
                     <div class="post-head">
                         <div class="post-head-left">
-                            <div class="post-user">{{ post.user }}</div>
-                            <span class="post-date">{{ post.date }}</span>
+                            <div class="post-user">{{ post.userName }}</div>
+                            <span class="post-date">{{ post.time }}</span>
                         </div>
-
                         <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
                             <mat-icon>menu</mat-icon>
                         </button>
@@ -28,19 +31,19 @@
                                 <mat-icon color="primary">question_answer</mat-icon>
                                 <span>Answer</span>
                             </button>
-                            <button mat-menu-item>
+                            <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId">
                                 <mat-icon color="primary">edit</mat-icon>
                                 <span>Edit</span>
                             </button>
-                            <button mat-menu-item (click)="deletePost(i)">
+                            <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId"
+                                (click)="deletePost(i)">
                                 <mat-icon color="primary">delete</mat-icon>
                                 <span>Remove</span>
                             </button>
                         </mat-menu>
-
                     </div>
                     <div>
-                        {{ post.message }}
+                        {{ post.content }}
                     </div>
                 </div>
             </div>
@@ -53,8 +56,8 @@
         <form class="example-form">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Message</mat-label>
-                <input matInput #message maxlength="256" placeholder="Ex. I need help with..." [(ngModel)]="newmessage"
-                    name="newmessage">
+                <input matInput #message maxlength="256" placeholder="Ex. I need help with..."
+                    [(ngModel)]="post.content" name="newmassage">
                 <mat-hint align="start"> </mat-hint>
                 <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>
@@ -72,7 +75,7 @@
 
                 </button>
             </div>
-            <button mat-raised-button color="primary" (click)="newPost() ">Send</button>
+            <button mat-raised-button color="primary" (click)="newPost()">Send</button>
         </div>
     </mat-card>
 

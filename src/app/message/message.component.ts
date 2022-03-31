@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
 import { Message } from '../models/message.class';
+import { Post } from '../models/post.class';
 import { AuthenticationService } from '../service/authentication.service';
 import { UserService } from '../service/user.service';
 
@@ -22,11 +23,13 @@ export class MessageComponent implements OnInit {
   newmessage: string;
   // allUsers: any = [];
   message = new Message();
+  post = new Post();
 
   allMessages: any = [];
   userId: any = '';
   chatFound: boolean = false;
   chatId: string = '';
+  allPosts: any = [];
 
 
 
@@ -73,9 +76,49 @@ export class MessageComponent implements OnInit {
 
 
 
-  newPost() {
 
-    this.posts.push({ user: 'Max', date: '24.03.22, 21.05 Uhr', message: this.newmessage })
+
+  newPost() {
+    this.post.userId = this.authService.currentUserId
+    // this.checkUser();
+    // this.checkDate();
+
+    this.firestore
+      .collection('messages')
+      .doc(this.chatId)
+      .collection('posts')
+      .add(this.post.toJSON());
+  }
+
+  checkUser() {
+    this.post.userId = this.authService.currentUserId
+    for (let i = 0; i < this.userService.allUsers.length; i++) {
+      let uid: string = this.userService.allUsers[i].uid;
+
+      if (this.post.userId == uid) {
+        this.post.userName = this.userService.allUsers[i].displayName
+        this.checkUserImg(i)
+      }
+    }
+  }
+
+  checkUserImg(i) {
+    if (this.userService.allUsers[i].photoURL == undefined) {
+      this.post.userImg = 'assets/img/user-placeholder.png';
+    } else {
+      this.post.userImg = this.userService.allUsers[i].photoURL;
+    }
+  }
+
+  checkDate() {
+    const formatDate = new Intl.DateTimeFormat("de", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
   }
 
 
@@ -141,11 +184,12 @@ export class MessageComponent implements OnInit {
 
       if (this.chatFound) {
         console.log('teffer ', this.chatFound, ' chatId', this.chatId);
+        this.getChat()
         // routerLink="['/message/' + user.customIdName]
         // this.router.navigate(['/home']);
 
       } else {
-        console.log('kein Treffer ', this.chatFound , ' chatId', this.chatId);
+        console.log('kein Treffer ', this.chatFound, ' chatId', this.chatId);
         // this.newChat()
       }
     }
@@ -178,14 +222,15 @@ export class MessageComponent implements OnInit {
 
   getChat() {
     this.firestore
-      .collection('users')
-      .doc(this.userId)
-      .collection('message', ref =>
+      .collection('messages')
+      .doc(this.chatId)
+      .collection('posts', ref =>
         ref.orderBy('time', 'asc'))
       .valueChanges({ idField: 'customIdName' })
-      .subscribe((message: any) => {
-        this.message = new Message(message);
-        console.log('get Chat', this.message)
+      .subscribe((changes: any) => {
+        this.post = new Post(changes);
+        this.allPosts = changes;
+        console.log('get Chat', this.post)
       })
 
   }
@@ -202,6 +247,9 @@ export class MessageComponent implements OnInit {
 
 
   }
+
+
+
 }
 
 
