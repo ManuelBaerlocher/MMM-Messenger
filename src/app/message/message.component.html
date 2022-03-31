@@ -53,8 +53,8 @@
         <form class="example-form">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Message</mat-label>
-                <input matInput #message maxlength="256" placeholder="Ex. I need help with..." [(ngModel)]="newmassage"
-                    name="newmassage">
+                <input matInput #message maxlength="256" placeholder="Ex. I need help with..." [(ngModel)]="newmessage"
+                    name="newmessage">
                 <mat-hint align="start"> </mat-hint>
                 <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>
@@ -72,7 +72,7 @@
 
                 </button>
             </div>
-            <button mat-raised-button color="primary" (click)="newPost()">Send</button>
+            <button mat-raised-button color="primary" (click)="newPost() ">Send</button>
         </div>
     </mat-card>
 

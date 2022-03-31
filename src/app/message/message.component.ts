@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
@@ -18,13 +18,12 @@ export class MessageComponent implements OnInit {
 
   users: any = [];
   posts: Array<any>
-  newmassage: string
+  newmessage: string; 
   // allUsers: any = [];
   message = new Message();
 
   allMessages: any = [];
-  userId: any = ''
-
+  userId: any = '';
 
 
 
@@ -73,10 +72,11 @@ export class MessageComponent implements OnInit {
 
   newPost() {
 
-    this.posts.push({ user: 'Max', date: '24.03.22, 21.05 Uhr', message: this.newmassage })
-    console.log('newPost', this.posts)
-
+    this.posts.push({ user: 'Max', date: '24.03.22, 21.05 Uhr', message: this.newmessage })
   }
+
+
+
 
   deletePost(i) {
     this.posts.splice(i, 1)
