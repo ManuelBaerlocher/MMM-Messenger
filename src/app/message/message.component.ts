@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
@@ -28,7 +28,7 @@ export class MessageComponent implements OnInit {
   allMessages: any = [];
   userId: any = '';
   chatFound: boolean = false;
-  chatId: string = '';
+  chatId: any = '';
   allPosts: any = [];
 
 
@@ -39,23 +39,14 @@ export class MessageComponent implements OnInit {
 
 
   constructor(
-    public userService: UserService,
-    public firestore: AngularFirestore,
-    private route: ActivatedRoute,
     public authService: AuthenticationService,
-  ) {
+    private route: ActivatedRoute,
+    public firestore: AngularFirestore,
+    public userService: UserService,
+
+  ) { }
 
 
-
-    this.posts = [
-
-      { user: 'Manuel', date: '25.03.22, 22.05 Uhr', message: 'hallo' },
-      { user: 'Max', date: '24.03.22, 21.05 Uhr', message: 'hallo2' }
-
-    ]
-
-
-  }
 
 
 
@@ -69,26 +60,38 @@ export class MessageComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
-
-
-
-  newPost() {
-    this.post.userId = this.authService.currentUserId
-    // this.checkUser();
-    // this.checkDate();
-
+  getPost() {
     this.firestore
       .collection('messages')
       .doc(this.chatId)
-      .collection('posts')
-      .add(this.post.toJSON());
+      .collection('posts', ref =>
+        ref.orderBy('time', 'asc'))
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allPosts = changes;
+      })
   }
+
+
+
+
+
+
+
+
+   newPost() {
+     this.post.userId = this.authService.currentUserId
+     this.checkUser();
+     this.checkDate();
+
+     console.log('new Post', this.chatId, this.post)
+     this.firestore
+       .collection('messages')
+       .doc(this.chatId)
+       .collection('posts')
+
+       .add(this.post.toJSON());
+   }
 
   checkUser() {
     this.post.userId = this.authService.currentUserId
@@ -119,6 +122,8 @@ export class MessageComponent implements OnInit {
       minute: "2-digit",
       second: "2-digit",
     });
+
+    this.post.time = formatDate.format(new Date())
   }
 
 
@@ -155,6 +160,7 @@ export class MessageComponent implements OnInit {
         this.allMessages = changes;
         console.log('allMessages loaded', this.allMessages, 'laenge', this.allMessages.length, this.userId)
         this.checkChat();
+
       })
   }
 
@@ -184,9 +190,9 @@ export class MessageComponent implements OnInit {
 
       if (this.chatFound) {
         console.log('teffer ', this.chatFound, ' chatId', this.chatId);
-        this.getChat()
-        // routerLink="['/message/' + user.customIdName]
-        // this.router.navigate(['/home']);
+        // this.getChat()
+        this.getPost()
+
 
       } else {
         console.log('kein Treffer ', this.chatFound, ' chatId', this.chatId);
@@ -229,7 +235,6 @@ export class MessageComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.post = new Post(changes);
-        this.allPosts = changes;
         console.log('get Chat', this.post)
       })
 
