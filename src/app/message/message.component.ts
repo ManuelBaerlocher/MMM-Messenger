@@ -80,7 +80,7 @@ export class MessageComponent implements OnInit {
 
   deletePost(i) {
     this.posts.splice(i, 1)
-    console.log('deltePost', i)
+    console.log('deletePost', i)
   }
 
 
