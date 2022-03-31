@@ -16,27 +16,17 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
-
-
-  users: any = [];
-  posts: Array<any>
-  newmessage: string;
-  // allUsers: any = [];
+  chatUser: ''
   message = new Message();
   post = new Post();
-
   allMessages: any = [];
   userId: any = '';
   chatFound: boolean = false;
   chatId: any = '';
   allPosts: any = [];
 
-
-
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
-
-
 
   constructor(
     public authService: AuthenticationService,
@@ -46,21 +36,14 @@ export class MessageComponent implements OnInit {
 
   ) { }
 
-
-
-
-
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.userId = paramMap.get('id')
       this.loadAllMessages();
     });
-
-
-
   }
 
-  getPost() {
+  loadPosts() {
     this.firestore
       .collection('messages')
       .doc(this.chatId)
@@ -72,26 +55,30 @@ export class MessageComponent implements OnInit {
       })
   }
 
+  checkChatUser() {
 
+    for (let i = 0; i < this.userService.allUsers.length; i++) {
+      let uid: string = this.userService.allUsers[i].uid;
 
+      if (this.userId == uid) {
+        this.chatUser = this.userService.allUsers[i].displayName
+        this.checkUserImg(i)
+      }
+    }
+  }
 
+  newPost() {
+    this.post.userId = this.authService.currentUserId
+    this.checkUser();
+    this.checkDate();
 
-
-
-
-   newPost() {
-     this.post.userId = this.authService.currentUserId
-     this.checkUser();
-     this.checkDate();
-
-     console.log('new Post', this.chatId, this.post)
-     this.firestore
-       .collection('messages')
-       .doc(this.chatId)
-       .collection('posts')
-       .add(this.post.toJSON());
-      this.post.content = '';
-   }
+    this.firestore
+      .collection('messages')
+      .doc(this.chatId)
+      .collection('posts')
+      .add(this.post.toJSON());
+    this.post.content = '';
+  }
 
   checkUser() {
     this.post.userId = this.authService.currentUserId
@@ -126,30 +113,16 @@ export class MessageComponent implements OnInit {
     this.post.time = formatDate.format(new Date())
   }
 
-
-
-
   deletePost(i) {
-    this.posts.splice(i, 1)
-    console.log('deletePost', i)
+
+    console.log('deletePost')
   }
 
-
-  //Test Chat Function Manuel
-
-
-
-
-
-
-
   checkChat() {
-
     this.message.userId1 = this.userId
     this.message.userId2 = this.authService.currentUserId;
 
-    // this.newChat();
-    this.isChatTrue();
+    this.isChatAvailable();
   }
 
   loadAllMessages() {
@@ -158,49 +131,23 @@ export class MessageComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allMessages = changes;
-        console.log('allMessages loaded', this.allMessages, 'laenge', this.allMessages.length, this.userId)
         this.checkChat();
-
+        this.checkChatUser();
       })
   }
 
-
-
-  // loadAllMessages() {
-  //   this.firestore
-  //     .collection('users')
-  //     .doc(this.userId)
-  //     .collection('message')
-  //     .valueChanges({ idField: 'customIdName' })
-  //     .subscribe((changes: any) => {
-  //       this.allMessages = changes;
-  //       console.log('allMessages loaded', this.allMessages, 'laenge', this.allMessages.length, this.userId)
-  //       this.checkChat();
-
-  //     })
-  // }
-
-  isChatTrue() {
+  isChatAvailable() {
     if (this.allMessages.length == 0) {
-      console.log('keine Dateien Vorhanden');
     } else if (this.message.userId2 == '') {
-      console.log('userId ist Leer!')
     } else {
       this.isChatFound();
-
       if (this.chatFound) {
-        console.log('teffer ', this.chatFound, ' chatId', this.chatId);
-        //this.getChat()
-        this.getPost()
-
-
+        this.loadPosts()
       } else {
-        console.log('kein Treffer ', this.chatFound, ' chatId', this.chatId);
         this.newChat()
       }
     }
   }
-
 
   isChatFound() {
     for (let i = 0; i < this.allMessages.length; i++) {
@@ -226,19 +173,6 @@ export class MessageComponent implements OnInit {
     }
   }
 
-  getChat() {
-    this.firestore
-      .collection('messages')
-      .doc(this.chatId)
-      .collection('posts', ref =>
-        ref.orderBy('time', 'asc'))
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.post = new Post(changes);
-        console.log('get Chat', this.post)
-      })
-
-  }
 
   newChat() {
 
@@ -249,12 +183,7 @@ export class MessageComponent implements OnInit {
       .then((result: any) => {
         console.log('new Chat', result)
       });
-
-
   }
-
-
-
 }
 
 

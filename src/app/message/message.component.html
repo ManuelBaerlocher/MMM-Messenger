@@ -4,7 +4,8 @@
     <mat-list>
         <div class="message-head">
 
-            <h1># Test Chat </h1>
+            <img class="user-icon" src='{{ post.userImg }}'>
+            <h1>{{ this.chatUser }} </h1>
 
         </div>
         <mat-divider></mat-divider>
@@ -15,7 +16,7 @@
 
             <div class="post-container">
                 <div class="post-left-container">
-                    <!-- <img class="user-icon" src='{{ post.userImg }}'> -->
+                    <img class="user-icon" src='{{ post.userImg }}'>
                 </div>
                 <div class="post-right-container">
                     <div class="post-head">
