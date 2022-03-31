@@ -8,6 +8,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { UserService } from '../service/user.service';
 
 
+
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -18,12 +19,14 @@ export class MessageComponent implements OnInit {
 
   users: any = [];
   posts: Array<any>
-  newmessage: string; 
+  newmessage: string;
   // allUsers: any = [];
   message = new Message();
 
   allMessages: any = [];
   userId: any = '';
+  chatFound: boolean = false;
+  chatId: string = '';
 
 
 
@@ -33,11 +36,9 @@ export class MessageComponent implements OnInit {
 
 
   constructor(
-
     public userService: UserService,
     public firestore: AngularFirestore,
     private route: ActivatedRoute,
-
     public authService: AuthenticationService,
   ) {
 
@@ -60,6 +61,8 @@ export class MessageComponent implements OnInit {
       this.userId = paramMap.get('id')
       this.loadAllMessages();
     });
+
+
 
   }
 
@@ -97,51 +100,78 @@ export class MessageComponent implements OnInit {
     this.message.userId1 = this.userId
     this.message.userId2 = this.authService.currentUserId;
 
-
+    // this.newChat();
     this.isChatTrue();
   }
 
-
-
   loadAllMessages() {
     this.firestore
-      .collection('users')
-      .doc(this.userId)
-      .collection('message')
+      .collection('messages')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allMessages = changes;
         console.log('allMessages loaded', this.allMessages, 'laenge', this.allMessages.length, this.userId)
         this.checkChat();
-
       })
   }
+
+
+
+  // loadAllMessages() {
+  //   this.firestore
+  //     .collection('users')
+  //     .doc(this.userId)
+  //     .collection('message')
+  //     .valueChanges({ idField: 'customIdName' })
+  //     .subscribe((changes: any) => {
+  //       this.allMessages = changes;
+  //       console.log('allMessages loaded', this.allMessages, 'laenge', this.allMessages.length, this.userId)
+  //       this.checkChat();
+
+  //     })
+  // }
 
   isChatTrue() {
     if (this.allMessages.length == 0) {
       console.log('keine Dateien Vorhanden');
-
-
+    } else if (this.message.userId2 == '') {
+      console.log('userId ist Leer!')
     } else {
-      for (let i = 0; i < this.allMessages.length; i++) {
-        const test = this.allMessages.length;
+      this.isChatFound();
 
-        if (this.allMessages[i].userId1 == this.message.userId1 && this.allMessages[i].userId2 == this.message.userId2) {
-          console.log('treffer');
+      if (this.chatFound) {
+        console.log('teffer ', this.chatFound, ' chatId', this.chatId);
+        // routerLink="['/message/' + user.customIdName]
+        // this.router.navigate(['/home']);
 
-
-        } else {
-          if (this.allMessages[i].userId2 == this.message.userId1 && this.allMessages[i].userId1 == this.message.userId2) {
-            console.log('treffer');
-
-
-          } else {
-            console.log('kein Treffer', this.allMessages[i].userId1, 'userid1', this.message.userId1)
-          }
+      } else {
+        console.log('kein Treffer ', this.chatFound , ' chatId', this.chatId);
+        // this.newChat()
+      }
+    }
+  }
 
 
-        }
-        console.log('forSchleife', test, this.allMessages);
+  isChatFound() {
+    for (let i = 0; i < this.allMessages.length; i++) {
+      let userId1 = this.allMessages[i].userId1;
+      let userId2 = this.allMessages[i].userId2;
+      let customId = this.allMessages[i].customIdName;
+
+      if (userId1 == this.message.userId1 && userId2 == this.message.userId2) {
+        this.chatId = customId;
+        this.chatFound = true;
+        break;
+
+      } else if (userId2 == this.message.userId1 && userId1 == this.message.userId2) {
+
+        this.chatId = customId;
+        this.chatFound = true
+        break;
+
+      } else {
+        this.chatId = '';
+        this.chatFound = false
       }
     }
   }
@@ -163,9 +193,8 @@ export class MessageComponent implements OnInit {
   newChat() {
 
     this.firestore
-      .collection('users')
-      .doc(this.userId)
-      .collection('message')
+      .collection('messages')
+
       .add(this.message.toJSON())
       .then((result: any) => {
         console.log('new Chat', result)
