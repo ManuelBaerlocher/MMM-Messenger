@@ -89,8 +89,8 @@ export class MessageComponent implements OnInit {
        .collection('messages')
        .doc(this.chatId)
        .collection('posts')
-
        .add(this.post.toJSON());
+      this.post.content = '';
    }
 
   checkUser() {
@@ -190,13 +190,13 @@ export class MessageComponent implements OnInit {
 
       if (this.chatFound) {
         console.log('teffer ', this.chatFound, ' chatId', this.chatId);
-        // this.getChat()
+        //this.getChat()
         this.getPost()
 
 
       } else {
         console.log('kein Treffer ', this.chatFound, ' chatId', this.chatId);
-        // this.newChat()
+        this.newChat()
       }
     }
   }
