@@ -108,6 +108,21 @@ export class ChannelComponent implements OnInit {
     this.post.time = formatDate.format(new Date())
   }
 
+  answerToPost(id) {
+    this.post.userId = this.authService.currentUserId
+    this.checkUser();
+    this.checkDate();
+
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .collection('posts')
+      .doc(id)
+      .collection('answers')
+      .add(this.post.toJSON());
+    this.post.content = ''
+  }
+
   deletePost(id) {
     this.firestore
       .collection('channels')

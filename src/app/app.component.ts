@@ -39,12 +39,12 @@ export class AppComponent {
     private userService: UsersService,
     public firestore: AngularFirestore,
     public dialog: MatDialog,
-     private route: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
 
-    
+
 
     this.loadAllChannels();
 
@@ -73,7 +73,7 @@ export class AppComponent {
 
   }
 
-  loadAllChannels(){
+  loadAllChannels() {
     this.firestore
       .collection('channels', ref =>
         ref.orderBy('nameCase', 'asc'))
@@ -96,19 +96,14 @@ export class AppComponent {
   }
 
   deleteChannel(id) {
-    console.log('delete Channel')
-    
-    
-    // this.router.navigate (['/channel/Aj1opKzgkWdA0FL9A18y']);
-    
-      this.firestore
-         .collection('channels')
-         .doc(id)
-         .delete()
-         .then(res => {
-          this.router.navigate(['/channel/' + this.allChannels[0].customIdName], { relativeTo: this.route });
-         })
-    
+    this.firestore
+      .collection('channels')
+      .doc(id)
+      .delete()
+      .then(res => {
+        this.router.navigate(['/channel/' + this.allChannels[0].customIdName], { relativeTo: this.route });
+      })
+
   }
 
 }

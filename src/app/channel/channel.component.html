@@ -28,7 +28,7 @@
                                 <mat-icon>menu</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="answerToPost(post.customIdName)">
                                     <mat-icon color="primary">question_answer</mat-icon>
                                     <span>Answer</span>
                                 </button>
