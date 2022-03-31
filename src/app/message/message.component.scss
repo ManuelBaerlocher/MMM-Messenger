@@ -30,7 +30,10 @@
   }
 }
 
-mat-list {
+
+
+.post-mainContainer{
+  height: calc(100vh - 302px);
   overflow: auto;
 }
 

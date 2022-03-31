@@ -11,43 +11,45 @@
         <span *ngIf="this.allPosts == 0">
             <h2>There is no post here yet...</h2>
         </span>
-        <div *ngFor="let post of allPosts let i = index">
+        <div class="post-mainContainer">
+            <div *ngFor="let post of allPosts let i = index">
 
-            <div class="post-container">
-                <div class="post-left-container">
-                    <img class="user-icon" src='{{ post.userImg }}'>
-                </div>
-                <div class="post-right-container">
-                    <div class="post-head">
-                        <div class="post-head-left">
-                            <div class="post-user">{{ post.userName }}</div>
-                            <span class="post-date">{{ post.time }}</span>
+                <div class="post-container">
+                    <div class="post-left-container">
+                        <img class="user-icon" src='{{ post.userImg }}'>
+                    </div>
+                    <div class="post-right-container">
+                        <div class="post-head">
+                            <div class="post-head-left">
+                                <div class="post-user">{{ post.userName }}</div>
+                                <span class="post-date">{{ post.time }}</span>
+                            </div>
+                            <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+                                <mat-icon>menu</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>
+                                    <mat-icon color="primary">question_answer</mat-icon>
+                                    <span>Answer</span>
+                                </button>
+                                <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId">
+                                    <mat-icon color="primary">edit</mat-icon>
+                                    <span>Edit</span>
+                                </button>
+                                <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId"
+                                    (click)="deletePost(i)">
+                                    <mat-icon color="primary">delete</mat-icon>
+                                    <span>Remove</span>
+                                </button>
+                            </mat-menu>
                         </div>
-                        <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
-                            <mat-icon>menu</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>
-                                <mat-icon color="primary">question_answer</mat-icon>
-                                <span>Answer</span>
-                            </button>
-                            <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId">
-                                <mat-icon color="primary">edit</mat-icon>
-                                <span>Edit</span>
-                            </button>
-                            <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId"
-                                (click)="deletePost(i)">
-                                <mat-icon color="primary">delete</mat-icon>
-                                <span>Remove</span>
-                            </button>
-                        </mat-menu>
-                    </div>
-                    <div>
-                        {{ post.content }}
+                        <div>
+                            {{ post.content }}
+                        </div>
                     </div>
                 </div>
+                <mat-divider></mat-divider>
             </div>
-            <mat-divider></mat-divider>
         </div>
     </mat-list>
 
