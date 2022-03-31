@@ -1,13 +1,6 @@
 export class Message {
     userId1: string;
     userId2: string;
-     value: string;
-
-
-
-
-
-
 
     constructor(obj?: any) {
         this.userId1 = obj ? obj.userId1 : '';

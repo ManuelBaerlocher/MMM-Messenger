@@ -43,6 +43,8 @@ export class AppComponent {
 
   ngOnInit(): void {
 
+    
+
     this.firestore
       .collection('channels', ref =>
         ref.orderBy('nameCase', 'asc'))

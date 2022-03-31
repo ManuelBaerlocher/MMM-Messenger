@@ -46,9 +46,10 @@ export class ChannelComponent implements OnInit {
       .doc(this.channelId)
       .collection('posts', ref =>
         ref.orderBy('time', 'asc'))
-      .valueChanges()
+      .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allPosts = changes;
+        console.log(this.allPosts)
       })
   }
 
@@ -72,7 +73,7 @@ export class ChannelComponent implements OnInit {
       .doc(this.channelId)
       .collection('posts')
       .add(this.post.toJSON());
-      this.post.content = ''
+    this.post.content = ''
   }
 
   checkUser() {
@@ -108,8 +109,14 @@ export class ChannelComponent implements OnInit {
     this.post.time = formatDate.format(new Date())
   }
 
-  deletePost(i) {
-    console.log('post clear')
+  deletePost(id) {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .collection('posts')
+      .doc(id)
+      .delete()
+      .then(res => {
+      })
   }
-
 }

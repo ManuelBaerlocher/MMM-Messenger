@@ -49,7 +49,7 @@ export class MessageComponent implements OnInit {
       .doc(this.chatId)
       .collection('posts', ref =>
         ref.orderBy('time', 'asc'))
-      .valueChanges()
+      .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allPosts = changes;
       })
@@ -113,9 +113,15 @@ export class MessageComponent implements OnInit {
     this.post.time = formatDate.format(new Date())
   }
 
-  deletePost(i) {
-
-    console.log('deletePost')
+  deletePost(id) {
+    this.firestore
+      .collection('messages')
+      .doc(this.chatId)
+      .collection('posts')
+      .doc(id)
+      .delete()
+      .then(res => {
+      })
   }
 
   checkChat() {
@@ -130,7 +136,7 @@ export class MessageComponent implements OnInit {
       .collection('messages')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
-        this.allMessages = changes;
+        this.allMessages = changes;      
         this.checkChat();
         this.checkChatUser();
       })
