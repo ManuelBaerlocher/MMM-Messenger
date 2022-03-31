@@ -72,6 +72,7 @@ export class ChannelComponent implements OnInit {
       .doc(this.channelId)
       .collection('posts')
       .add(this.post.toJSON());
+      this.post.content = ''
   }
 
   checkUser() {
