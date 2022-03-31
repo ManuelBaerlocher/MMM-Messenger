@@ -48,7 +48,7 @@ export class ChannelComponent implements OnInit {
         ref.orderBy('time', 'asc'))
       .valueChanges()
       .subscribe((changes: any) => {
-        this.allPosts = changes;;
+        this.allPosts = changes;
       })
   }
 
