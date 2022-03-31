@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Channel } from './models/channel.class';
@@ -39,19 +39,14 @@ export class AppComponent {
     private userService: UsersService,
     public firestore: AngularFirestore,
     public dialog: MatDialog,
+     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
 
     
 
-    this.firestore
-      .collection('channels', ref =>
-        ref.orderBy('nameCase', 'asc'))
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.allChannels = changes;
-      })
+    this.loadAllChannels();
 
     this.firestore
       .collection('users')
@@ -78,6 +73,17 @@ export class AppComponent {
 
   }
 
+  loadAllChannels(){
+    this.firestore
+      .collection('channels', ref =>
+        ref.orderBy('nameCase', 'asc'))
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.allChannels = changes;
+        console.log(this.allChannels)
+      })
+  }
+
 
   logout() {
     this.authService.logout().subscribe(() => {
@@ -89,8 +95,20 @@ export class AppComponent {
     this.dialog.open(DialogAddChannelComponent)
   }
 
-  deleteChannel() {
+  deleteChannel(id) {
     console.log('delete Channel')
+    
+    
+    // this.router.navigate (['/channel/Aj1opKzgkWdA0FL9A18y']);
+    
+      this.firestore
+         .collection('channels')
+         .doc(id)
+         .delete()
+         .then(res => {
+          this.router.navigate(['/channel/' + this.allChannels[0].customIdName], { relativeTo: this.route });
+         })
+    
   }
 
 }

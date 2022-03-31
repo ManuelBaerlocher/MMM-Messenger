@@ -49,7 +49,6 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allPosts = changes;
-        console.log(this.allPosts)
       })
   }
 

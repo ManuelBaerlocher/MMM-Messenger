@@ -8,10 +8,10 @@
 
         </div>
         <mat-divider></mat-divider>
-        <span *ngIf="this.allPosts == 0">
-            <h2>There is no post here yet...</h2>
-        </span>
         <div class="post-mainContainer">
+            <span *ngIf="this.allPosts == 0">
+                <h2>There is no post here yet...</h2>
+            </span>
             <div *ngFor="let post of allPosts let i = index">
 
                 <div class="post-container">

@@ -22,7 +22,7 @@
                         [routerLink]="['/channel/' + channel.customIdName]">
                         <td>
                             <div>{{ channel.name }}</div>
-                            <div><button mat-menu-item (click)="deleteChannel()">
+                            <div><button mat-menu-item (click)="deleteChannel(channel.customIdName)" >
                                     <mat-icon color="primary">delete</mat-icon>
                                 </button>
                             </div>
