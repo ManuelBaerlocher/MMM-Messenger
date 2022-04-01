@@ -41,6 +41,8 @@ import { MessageComponent } from './message/message.component';
 import { FormsModule } from '@angular/forms';
 import { ChannelComponent } from './channel/channel.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { ImpressumComponent } from './impressum/impressum.component';
+import { DataProtectionComponent } from './data-protection/data-protection.component';
 
 
 
@@ -53,7 +55,9 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
     ProfileComponent,
     MessageComponent,
     ChannelComponent,
-    DialogAddChannelComponent
+    DialogAddChannelComponent,
+    ImpressumComponent,
+    DataProtectionComponent
   ],
   imports: [
     BrowserModule,
