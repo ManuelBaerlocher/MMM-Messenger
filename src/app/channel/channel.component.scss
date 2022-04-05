@@ -71,7 +71,8 @@
   }
   
   .post-right-container {
-    width: 100%;
+    width: 90%;
+    word-wrap: break-word;
   }
   
   .post-head {
@@ -114,3 +115,20 @@
     display: flex;
   }
   
+
+  @media only screen 
+and (max-width : 991px){
+  .post-right-container {
+    width: 80%;
+  }
+}
+
+@media only screen 
+and (max-width : 768px){
+    /* Styles */
+}
+
+@media only screen 
+and (max-width : 414px){
+    /* Styles */
+}
