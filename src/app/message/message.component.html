@@ -4,7 +4,7 @@
     <mat-list>
         <div class="message-head">
 
-            <img class="user-icon" src='{{ post.userImg }}'>
+            <img class="user-icon" src='{{ this.userService.allUsers[userId].photoURL }}'>
             <h1>{{ this.chatUser }} </h1>
 
         </div>
