@@ -24,6 +24,8 @@ export class MessageComponent implements OnInit {
   chatFound: boolean = false;
   chatId: any = '';
   allPosts: any = [];
+  users: any = [];
+  photoUrl: string = ''
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -40,7 +42,13 @@ export class MessageComponent implements OnInit {
     this.route.paramMap.subscribe(paramMap => {
       this.userId = paramMap.get('id')
       this.loadAllMessages();
+
+
+
+
     });
+
+
   }
 
   loadPosts() {
@@ -53,6 +61,34 @@ export class MessageComponent implements OnInit {
       .subscribe((changes: any) => {
         this.allPosts = changes;
       })
+  }
+
+  checkUserHeadImg() {
+
+    this.firestore
+        .collection('users')
+        .valueChanges()
+        .subscribe((changes: any) => {
+          this.users = changes;
+          this.checkHeadUserForeach()
+        })
+
+    
+  }
+
+  checkHeadUserForeach(){
+    this.users.forEach(element => {
+
+      if (this.userId == element.uid) {
+        console.log('test', element.photoURL)
+        if (element.photoURL == undefined) {
+          this.photoUrl = 'assets/img/user-placeholder.png';
+        } else {
+          this.photoUrl = element.photoURL;
+        }
+      }
+
+    });
   }
 
   checkChatUser() {
@@ -137,9 +173,10 @@ export class MessageComponent implements OnInit {
       .collection('messages')
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
-        this.allMessages = changes;      
+        this.allMessages = changes;
         this.checkChat();
         this.checkChatUser();
+        this.checkUserHeadImg();
       })
   }
 
