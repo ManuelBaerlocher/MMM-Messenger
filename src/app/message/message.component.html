@@ -25,14 +25,14 @@
                                 <div class="post-user">{{ post.userName }}</div>
                                 <span class="post-date">{{ post.date }}</span>
                             </div>
-                            <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+                            <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary" *ngIf="this.authService.currentUserId == post.userId">
                                 <mat-icon>menu</mat-icon>
                             </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item>
+                            <mat-menu #menu="matMenu" >
+                                <!-- <button mat-menu-item>
                                     <mat-icon color="primary">question_answer</mat-icon>
                                     <span>Answer</span>
-                                </button>
+                                </button> -->
                                 <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId">
                                     <mat-icon color="primary">edit</mat-icon>
                                     <span>Edit</span>
