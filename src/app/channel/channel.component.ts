@@ -74,10 +74,11 @@ export class ChannelComponent implements OnInit {
     }
 
     newPost() {
+      
       this.post.userId = this.authService.currentUserId
       this.checkUser();
       this.checkDate();
-
+      
       this.firestore
         .collection('channels')
         .doc(this.channelId)
