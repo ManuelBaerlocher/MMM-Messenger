@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
+import { timestamp } from 'rxjs';
 import { Channel } from '../models/channel.class';
 import { Post } from '../models/post.class';
 import { AuthenticationService } from '../service/authentication.service';
@@ -76,8 +77,10 @@ export class ChannelComponent implements OnInit {
     newPost() {
       
       this.post.userId = this.authService.currentUserId
+      this.post.time = Date.now();
       this.checkUser();
       this.checkDate();
+      console.log(Date.now())
       
       this.firestore
         .collection('channels')
@@ -117,7 +120,7 @@ export class ChannelComponent implements OnInit {
         second: "2-digit",
       });
 
-      this.post.time = formatDate.format(new Date())
+      this.post.date = formatDate.format(new Date())
     }
 
     answerToPost(id) {

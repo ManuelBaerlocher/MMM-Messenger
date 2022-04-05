@@ -23,7 +23,7 @@
                         <div class="post-head">
                             <div class="post-head-left">
                                 <div class="post-user">{{ post.userName }}</div>
-                                <span class="post-date">{{ post.time }}</span>
+                                <span class="post-date">{{ post.date }}</span>
                             </div>
                             <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary">
                                 <mat-icon>menu</mat-icon>
@@ -59,8 +59,8 @@
         <form class="example-form">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Message</mat-label>
-                <input (keydown.enter)="newPost()" matInput #message maxlength="256" placeholder="Ex. I need help with..."
-                    [(ngModel)]="post.content" name="newmassage" (keyup.enter)="newPost()">
+                <input (keyup.enter)="newPost()" matInput #message maxlength="256" placeholder="Ex. I need help with..."
+                    [(ngModel)]="post.content" name="newmassage" >
                 <mat-hint align="start"> </mat-hint>
                 <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>

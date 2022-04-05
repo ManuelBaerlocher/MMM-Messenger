@@ -69,6 +69,7 @@ export class MessageComponent implements OnInit {
 
   newPost() {
     this.post.userId = this.authService.currentUserId
+    this.post.time = Date.now();
     this.checkUser();
     this.checkDate();
 
@@ -110,7 +111,7 @@ export class MessageComponent implements OnInit {
       second: "2-digit",
     });
 
-    this.post.time = formatDate.format(new Date())
+    this.post.date = formatDate.format(new Date())
   }
 
   deletePost(id) {

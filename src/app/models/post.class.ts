@@ -5,7 +5,8 @@ export class Post {
     content: string;
     img: string;
     code: string;
-    time: string;
+    time: number;
+    date:string;
 
 
 
@@ -18,6 +19,7 @@ export class Post {
         this.img = obj ? obj.img : '';
         this.code = obj ? obj.code : '';
         this.time = obj ? obj.time : '';
+        this.date = obj ? obj.date : '';
 
     }
 
@@ -29,7 +31,8 @@ export class Post {
             content: this.content,
             img: this.img,
             code: this.code,
-            time: this.time
+            time: this.time,
+            date: this.date
         };
     }
 }
