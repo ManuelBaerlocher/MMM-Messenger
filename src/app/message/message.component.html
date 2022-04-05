@@ -4,7 +4,8 @@
     <mat-list>
         <div class="message-head">
 
-            <img class="user-icon" src='{{ post.userImg }}'>
+            <img class="user-icon" src='{{ this.photoUrl}}'>
+
             <h1>{{ this.chatUser }} </h1>
 
         </div>
@@ -60,7 +61,7 @@
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Message</mat-label>
                 <input (keyup.enter)="newPost()" matInput #message maxlength="256" placeholder="Ex. I need help with..."
-                    [(ngModel)]="post.content" name="newmassage" >
+                    [(ngModel)]="post.content" name="newmassage">
                 <mat-hint align="start"> </mat-hint>
                 <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>
