@@ -35,7 +35,6 @@ export class MessageComponent implements OnInit {
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     public userService: UserService,
-
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +49,7 @@ export class MessageComponent implements OnInit {
 
 
   }
+
 
   loadPosts() {
     this.firestore

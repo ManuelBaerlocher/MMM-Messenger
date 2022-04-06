@@ -69,7 +69,13 @@
             <div>
                 <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
                     matTooltipHideDelay="100">
-                    <mat-icon>photo</mat-icon>
+                    <div class="upload-img">
+
+                        <button mat-mini-fab color="primary" (click)="inputField.click()">
+                            <mat-icon>photo</mat-icon>
+                        </button>
+                    </div>
+                    <input #inputField type="file" hidden >
 
                 </button>
                 <button mat-icon-button color="primary" matTooltip="Add Code" [matTooltipPosition]="position.value"
