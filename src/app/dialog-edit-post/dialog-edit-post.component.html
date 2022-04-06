@@ -1,0 +1,41 @@
+<div class="dialog-container">
+
+
+    <h1 onclick="" mat-dialog-title>Edit Post</h1>
+    <div mat-dialog-content>
+        <div>
+
+            <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Message</mat-label>
+                    <input (keyup.enter)="editPost()" matInput #message maxlength="256"
+                        placeholder="Ex. I need help with..." [(ngModel)]="post.content" name="newmassage">
+                    <mat-hint align="start"> </mat-hint>
+                    <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+                </mat-form-field>
+            </form>
+
+
+
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="dialog-action-buttons, send-button">
+        <div>
+            <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
+                matTooltipHideDelay="100">
+                <mat-icon>photo</mat-icon>
+
+            </button>
+            <button mat-icon-button color="primary" matTooltip="Add Code" [matTooltipPosition]="position.value"
+                matTooltipHideDelay="100">
+                <mat-icon>code</mat-icon>
+
+            </button>
+        </div>
+        <div>
+            <button mat-button (click)="onNoClick()">Cancel</button>
+            <button mat-button (click)="editPost()">Edit</button>
+        </div>
+    </div>
+</div>

@@ -43,6 +43,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
+import { DialogEditPostComponent } from './dialog-edit-post/dialog-edit-post.component';
 
 
 
@@ -57,7 +58,8 @@ import { DataProtectionComponent } from './data-protection/data-protection.compo
     ChannelComponent,
     DialogAddChannelComponent,
     ImpressumComponent,
-    DataProtectionComponent
+    DataProtectionComponent,
+    DialogEditPostComponent
   ],
   imports: [
     BrowserModule,
