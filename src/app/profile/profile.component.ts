@@ -64,4 +64,9 @@ export class ProfileComponent implements OnInit {
     )
     .subscribe();
   }
+
+  autofill(){
+    var me =  (document.getElementById("code") as HTMLInputElement).value;
+    console.log(me);
+  }
 }
