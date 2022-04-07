@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
+import { DialogEditPostComponent } from '../dialog-edit-post/dialog-edit-post.component';
 import { Message } from '../models/message.class';
 import { Post } from '../models/post.class';
 import { AuthenticationService } from '../service/authentication.service';
@@ -26,6 +28,7 @@ export class MessageComponent implements OnInit {
   allPosts: any = [];
   users: any = [];
   photoUrl: string = ''
+  
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -35,6 +38,7 @@ export class MessageComponent implements OnInit {
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     public userService: UserService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -66,17 +70,17 @@ export class MessageComponent implements OnInit {
   checkUserHeadImg() {
 
     this.firestore
-        .collection('users')
-        .valueChanges()
-        .subscribe((changes: any) => {
-          this.users = changes;
-          this.checkHeadUserForeach()
-        })
+      .collection('users')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.users = changes;
+        this.checkHeadUserForeach()
+      })
 
-    
+
   }
 
-  checkHeadUserForeach(){
+  checkHeadUserForeach() {
     this.users.forEach(element => {
 
       if (this.userId == element.uid) {
@@ -227,6 +231,18 @@ export class MessageComponent implements OnInit {
       .then((result: any) => {
         console.log('new Chat', result)
       });
+  }
+
+
+  openDialog(id, content) {
+
+    const dialog = this.dialog.open(DialogEditPostComponent)
+    dialog.componentInstance.post = new Post(this.post.toJSON());
+    dialog.componentInstance.post.postId = id;
+    dialog.componentInstance.post.content = content;
+    dialog.componentInstance.function = 'messages'
+    dialog.componentInstance.channelId = this.chatId
+
   }
 }
 

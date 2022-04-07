@@ -8,6 +8,7 @@ export class Post {
     time: number;
     date:string;
     postId: string;
+    edit: string
 
 
 
@@ -22,6 +23,7 @@ export class Post {
         this.time = obj ? obj.time : '';
         this.date = obj ? obj.date : '';
         this.postId = obj ? obj.postId : '';
+        this.edit = obj? obj.edit : '';
 
     }
 
@@ -35,7 +37,8 @@ export class Post {
             code: this.code,
             time: this.time,
             date: this.date,
-            postId: this.postId
+            postId: this.postId,
+            edit: this.edit
         };
     }
 }

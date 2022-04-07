@@ -22,7 +22,7 @@
                         <div class="post-head">
                             <div class="post-head-left">
                                 <div class="post-user">{{ post.userName }}</div>
-                                <span class="post-date">{{ post.date }}</span>
+                                <span class="post-date">{{ post.date }}{{ post.edit}}</span>
                             </div>
                             <button class="menu-button"  mat-icon-button [matMenuTriggerFor]="menu" color="primary"
                                 *ngIf="this.authService.currentUserId == post.userId">
@@ -33,7 +33,7 @@
                                     <mat-icon color="primary">question_answer</mat-icon>
                                     <span>Answer</span>
                                 </button> -->
-                                <button (click)="loadEditPost(post.customIdName)" mat-menu-item
+                                <button (click)="openDialog(post.customIdName, post.content)" mat-menu-item
                                     *ngIf="this.authService.currentUserId == post.userId">
                                     <mat-icon color="primary">edit</mat-icon>
                                     <span>Edit</span>
@@ -68,7 +68,7 @@
         </form>
         <div class="send-button">
             <div>
-                <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
+                <!-- <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
                     matTooltipHideDelay="100">
                     <mat-icon>photo</mat-icon>
 
@@ -77,7 +77,7 @@
                     matTooltipHideDelay="100">
                     <mat-icon>code</mat-icon>
 
-                </button>
+                </button> -->
             </div>
             <button mat-raised-button color="primary" (click)="newPost()">Send</button>
         </div>

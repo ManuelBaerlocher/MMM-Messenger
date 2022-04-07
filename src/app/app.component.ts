@@ -80,7 +80,7 @@ export class AppComponent {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        console.log(this.allChannels)
+        
       })
   }
 

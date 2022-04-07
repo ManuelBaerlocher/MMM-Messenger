@@ -23,7 +23,8 @@
                         <div class="post-head">
                             <div class="post-head-left">
                                 <div class="post-user">{{ post.userName }}</div>
-                                <span class="post-date">{{ post.date }}</span>
+                                <span class="post-date">{{ post.date }}{{ post.edit}}</span>
+                                
                             </div>
                             <button class="menu-button" mat-icon-button [matMenuTriggerFor]="menu" color="primary" *ngIf="this.authService.currentUserId == post.userId">
                                 <mat-icon>menu</mat-icon>
@@ -33,7 +34,7 @@
                                     <mat-icon color="primary">question_answer</mat-icon>
                                     <span>Answer</span>
                                 </button> -->
-                                <button mat-menu-item *ngIf="this.authService.currentUserId == post.userId">
+                                <button (click)="openDialog(post.customIdName, post.content)" mat-menu-item *ngIf="this.authService.currentUserId == post.userId">
                                     <mat-icon color="primary">edit</mat-icon>
                                     <span>Edit</span>
                                 </button>
@@ -67,7 +68,7 @@
         </form>
         <div class="send-button">
             <div>
-                <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
+                <!-- <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
                     matTooltipHideDelay="100">
                     <div class="upload-img">
 
@@ -77,12 +78,12 @@
                     </div>
                     <input #inputField type="file" hidden >
 
-                </button>
+                </button> 
                 <button mat-icon-button  color="primary" matTooltip="Add Code" [matTooltipPosition]="position.value"
                     matTooltipHideDelay="100" onclick="autofill()">
                     <mat-icon>code</mat-icon>
 
-                </button>
+                </button>-->
             </div>
             <button mat-raised-button color="primary" (click)="newPost()">Send</button>
         </div>

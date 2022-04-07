@@ -41,7 +41,6 @@ export class ChannelComponent implements OnInit {
       this.channelId = paramMap.get('id');
       this.checkCurrentUser();
       this.getChannel();
-      //this.getPost();
       this.getAllPosts();
     })
 
@@ -49,7 +48,7 @@ export class ChannelComponent implements OnInit {
 
   checkCurrentUser() {
     this.auth.currentUser.then((result: any) => {
-      console.log('user', result.uid)
+      
 
     });
 
@@ -67,17 +66,7 @@ export class ChannelComponent implements OnInit {
       })
   }
 
-  // getPost() {
-  //   this.firestore
-  //     .collection('channels')
-  //     .doc(this.channelId)
-  //     .collection('posts', ref =>
-  //       ref.orderBy('time', 'asc'))
-  //     .valueChanges({ idField: 'customIdName' })
-  //     .subscribe((changes: any) => {
-        
-  //     })
-  // }
+
 
   getChannel() {
     this.firestore
@@ -139,20 +128,7 @@ export class ChannelComponent implements OnInit {
     this.post.date = formatDate.format(new Date())
   }
 
-  // answerToPost(id) {
-  //   this.post.userId = this.authService.currentUserId
-  //   this.checkUser();
-  //   this.checkDate();
 
-  //   this.firestore
-  //     .collection('channels')
-  //     .doc(this.channelId)
-  //     .collection('posts')
-  //     .doc(id)
-  //     .collection('answers')
-  //     .add(this.post.toJSON());
-  //   this.post.content = ''
-  // }
 
   deletePost(id) {
     this.firestore
@@ -167,33 +143,18 @@ export class ChannelComponent implements OnInit {
 
 
 
-  editPost(id) {
-    this.loadEditPost(id);
-
-  }
-
-  loadEditPost(id) {
-    //  this.firestore
-    //   .collection('channels')
-    //   .doc(this.channelId)
-    //   .collection('posts')
-    //   .doc(id)
-    //   .valueChanges({ idField: 'customIdName' })
-    //   .subscribe((post: any) => {
-    //     this.post = new Post(post);
 
 
-    //   })
 
-     this.openDialog(id)
-  }
 
-  openDialog(id) {
+  openDialog(id, content) {
 
     const dialog = this.dialog.open(DialogEditPostComponent)
     dialog.componentInstance.post = new Post(this.post.toJSON());
     dialog.componentInstance.post.postId = id;
+    dialog.componentInstance.post.content = content;
     dialog.componentInstance.channelId = this.channelId
+    dialog.componentInstance.function = 'channels'
 
   }
 }
