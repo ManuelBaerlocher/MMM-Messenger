@@ -40,7 +40,7 @@ export class DialogEditPostComponent implements OnInit {
       .doc(this.channelId)
       .collection('posts')
       .doc(this.post.postId)
-      .update(this.post.toJSON())
+      .update({  content: this.post.content  })
       .then(() => {
         this.dialogRef.close();
       })

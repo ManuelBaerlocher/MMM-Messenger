@@ -41,7 +41,7 @@ export class ChannelComponent implements OnInit {
       this.channelId = paramMap.get('id');
       this.checkCurrentUser();
       this.getChannel();
-      this.getPost();
+      //this.getPost();
       this.getAllPosts();
     })
 
@@ -63,23 +63,21 @@ export class ChannelComponent implements OnInit {
         ref.orderBy('time', 'asc'))
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
-
-        console.log(changes);
-
-      })
-  }
-
-  getPost() {
-    this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .collection('posts', ref =>
-        ref.orderBy('time', 'asc'))
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
         this.allPosts = changes;
       })
   }
+
+  // getPost() {
+  //   this.firestore
+  //     .collection('channels')
+  //     .doc(this.channelId)
+  //     .collection('posts', ref =>
+  //       ref.orderBy('time', 'asc'))
+  //     .valueChanges({ idField: 'customIdName' })
+  //     .subscribe((changes: any) => {
+        
+  //     })
+  // }
 
   getChannel() {
     this.firestore
@@ -174,20 +172,20 @@ export class ChannelComponent implements OnInit {
 
   }
 
-  async loadEditPost(id) {
-    await this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .collection('posts')
-      .doc(id)
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((post: any) => {
-        this.post = new Post(post);
+  loadEditPost(id) {
+    //  this.firestore
+    //   .collection('channels')
+    //   .doc(this.channelId)
+    //   .collection('posts')
+    //   .doc(id)
+    //   .valueChanges({ idField: 'customIdName' })
+    //   .subscribe((post: any) => {
+    //     this.post = new Post(post);
 
 
-      })
+    //   })
 
-    await this.openDialog(id)
+     this.openDialog(id)
   }
 
   openDialog(id) {
