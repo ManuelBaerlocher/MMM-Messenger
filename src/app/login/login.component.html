@@ -1,38 +1,40 @@
-<div class="form-container mat-elevation-z5">
-    <div class="center">
-        <img src="/assets/img/Logo.png" style="height: 96px; width: 96px; object-fit: cover;">
-    </div>
-    <h1 class="center">M³ Messenger</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+<div class="main-container router-container">
+    <div class="form-container mat-elevation-z5 ">
+        <div class="center">
+            <img src="/assets/img/Logo.png" style="height: 96px; width: 96px; object-fit: cover;">
+        </div>
+        <h1 class="center">M³ Messenger</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
 
-        <mat-form-field appearance="outline">
-            <mat-label>E-mail</mat-label>
-            <input matInput formControlName="email" type="email">
-            <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
-            <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email" type="email">
+                <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
+                <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password">
-            <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password">
+                <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+            </mat-form-field>
 
-        <div class="center mt-16">
-            <button mat-raised-button color="primary" type="submit">Login</button>
+            <div class="center mt-16">
+                <button mat-raised-button color="primary" type="submit">Login</button>
+            </div>
+
+            <!-- <span class="center mt-16">Login as Guest<a routerLink="home" class="sign-up-link">Login</a></span> -->
+            <span class="center mt-16">New to our platform? <a routerLink="/signUp" class="sign-up-link">Sign
+                    Up!</a></span>
+
+
+        </form>
+
+        <div class="center mt-16 otherLogin-container">
+            <button (click)="this.authS.google()" mat-raised-button color="primary">Google</button>
+            <button (click)="anoymous()" mat-raised-button color="primary">Anoymous</button>
         </div>
 
-        <!-- <span class="center mt-16">Login as Guest<a routerLink="home" class="sign-up-link">Login</a></span> -->
-        <span class="center mt-16">New to our platform? <a routerLink="/signUp" class="sign-up-link">Sign
-                Up!</a></span>
 
-
-    </form>
-
-    <div class="center mt-16 otherLogin-container">
-        <button (click)="this.authS.google()" mat-raised-button color="primary">Google</button>
-        <button (click)="anoymous()" mat-raised-button color="primary">Anoymous</button>
     </div>
-
-
 </div>

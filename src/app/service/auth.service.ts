@@ -36,24 +36,31 @@ export class AuthService {
     this.auth.currentUser.then((result: any) => {
       result.displayName
       console.log('user', result)
-
+      return result.displayName;
     });
 
   }
 
-  testManuel() {
-    this.auth.onAuthStateChanged((user) => {
+  checkDisplayName() {
+    this.auth.onAuthStateChanged((user: any) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        var uid = user.uid;
-        console.log(uid, user)
-        // ...
+        user.updateDisplayName(user)
+        console.log(user)
+        return user._delegate.displayName
       } else {
-        // User is signed out
-        // ...
+        return "Username fehlt"
       }
     });
+  }
+
+  testManuel() {
+    this.auth.currentUser.then((test) => {
+      console.log('test', test);
+
+    })
+
+
+
   }
 
   logout() {

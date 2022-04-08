@@ -50,7 +50,7 @@ export class ChannelComponent implements OnInit {
       this.checkCurrentUser();
       this.getChannel();
       this.getAllPosts();
-      
+
     })
 
   }
@@ -92,7 +92,7 @@ export class ChannelComponent implements OnInit {
   newPost() {
 
     this.post.userId = this.authService.currentUserId
-  
+
 
     this.post.time = Date.now();
     this.post.userImg = this.checkUser();
@@ -108,6 +108,7 @@ export class ChannelComponent implements OnInit {
   }
 
   checkUser() {
+
     this.post.userId = this.authService.currentUserId
     for (let i = 0; i < this.userService.allUsers.length; i++) {
       let uid: string = this.userService.allUsers[i].uid;
@@ -186,8 +187,10 @@ export class ChannelComponent implements OnInit {
   }
 
   newAnswer() {
-    console.log('answer')
+    this.authS.testManuel();
     this.answer.userId = this.authService.currentUserId
+    this.authS.checkDisplayName()
+    this.answer.userName = 'this.authS.testManuel();'
 
     this.answer.time = Date.now();
     this.checkUser();
