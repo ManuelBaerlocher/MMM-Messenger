@@ -11,3 +11,16 @@ h1 {
 .background {
     width: 100%;
 }
+
+.mat-form-field {
+    margin-right: 8px;
+}
+
+.otherLogin-container {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        margin: 8px;
+    }
+}

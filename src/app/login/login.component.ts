@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { HotToastService } from '@ngneat/hot-toast';
-import { AppComponent } from '../app.component';
-import { AuthenticationService } from '../service/authentication.service';
+import { AuthService } from '../service/auth.service';
+import { SnackBarLoginComponent } from '../snack-bar-login/snack-bar-login.component';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { DialogAddDisplayNameComponent } from '../dialog-add-display-name/dialog-add-display-name.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +20,16 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   })
 
+
+
+
   constructor(
-    private authService: AuthenticationService, 
-    private router: Router, 
-    private toast: HotToastService
-    ) { }
+    private router: Router,
+    public authS: AuthService,
+    private _snackBar: MatSnackBar,
+    public auth: AngularFireAuth,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -34,21 +42,40 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+
   submit() {
     if (!this.loginForm.valid) {
-      return;
+      console.log('test')
     } else {
       const { email, password } = this.loginForm.value;
-      this.authService.login(email, password).pipe(
-        this.toast.observe({  // toast = Erorr Messages Service to see what's happening \\            
-          success: 'Logged in successfully',
-          loading: 'Loagging in...',
-          error: 'There was an error'
-        })
-      ).subscribe(() =>{
-        this.router.navigate(['home']);
-        this.authService.loggedin = true;
+      this.auth.signInWithEmailAndPassword(email, password).then((result: any) => {
+        if (result.user.displayName == null) {
+          this.dialog.open(DialogAddDisplayNameComponent)
+          this.router.navigate([''])
+        } else {
+          this.router.navigate([''])
+          this._snackBar.openFromComponent(SnackBarLoginComponent, {
+            data: 'Welcome ' + result.user.displayName,
+            duration: 5000,
+          });
+        }
       })
+        .catch((error) => {
+          this._snackBar.openFromComponent(SnackBarLoginComponent, {
+            data: error.code,
+            duration: 5000,
+          });
+        });
     }
   }
+
+  anoymous() {
+    this.auth.signInAnonymously().then((result: any) => {
+      console.log(result)
+      this.dialog.open(DialogAddDisplayNameComponent)
+      this.router.navigate([''])
+
+    });
+  }
 }
+

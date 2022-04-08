@@ -15,14 +15,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
-import {MatCardModule} from '@angular/material/card';
-import {MatExpansionModule} from '@angular/material/expansion'; 
-import {MatDividerModule} from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 // Material Design End\\
 
@@ -33,6 +33,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 // Angular Firebase End\\
 
 import { HotToastModule } from '@ngneat/hot-toast';
@@ -44,6 +45,8 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
 import { DialogEditPostComponent } from './dialog-edit-post/dialog-edit-post.component';
+import { SnackBarLoginComponent } from './snack-bar-login/snack-bar-login.component';
+import { DialogAddDisplayNameComponent } from './dialog-add-display-name/dialog-add-display-name.component';
 
 
 
@@ -59,7 +62,9 @@ import { DialogEditPostComponent } from './dialog-edit-post/dialog-edit-post.com
     DialogAddChannelComponent,
     ImpressumComponent,
     DataProtectionComponent,
-    DialogEditPostComponent
+    DialogEditPostComponent,
+    SnackBarLoginComponent,
+    DialogAddDisplayNameComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,8 +87,9 @@ import { DialogEditPostComponent } from './dialog-edit-post/dialog-edit-post.com
     MatExpansionModule,
     MatDividerModule,
     MatDialogModule,
-   
-    
+    MatSnackBarModule,
+
+
     // Material Design End\\
 
     // Angular Firebase \\

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { Channel } from './models/channel.class';
+import { AuthService } from './service/auth.service';
 import { AuthenticationService } from './service/authentication.service';
 import { UsersService } from './service/users.service';
 
@@ -39,11 +40,12 @@ export class AppComponent {
     private userService: UsersService,
     public firestore: AngularFirestore,
     public dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public authS: AuthService
   ) { }
 
   ngOnInit(): void {
-
+    this.authS.testManuel()
 
 
     this.loadAllChannels();
@@ -69,7 +71,7 @@ export class AppComponent {
       .subscribe((changes: any) => {
         this.allMessages = changes;
       })
-
+    
 
   }
 
@@ -80,7 +82,7 @@ export class AppComponent {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-        
+
       })
   }
 
@@ -92,6 +94,7 @@ export class AppComponent {
   }
 
   openDialog() {
+    this.authS.checkCurrentUser();
     this.dialog.open(DialogAddChannelComponent)
   }
 

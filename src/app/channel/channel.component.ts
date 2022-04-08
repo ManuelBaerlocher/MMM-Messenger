@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogEditPostComponent } from '../dialog-edit-post/dialog-edit-post.component';
 import { Channel } from '../models/channel.class';
 import { Post } from '../models/post.class';
+import { AuthService } from '../service/auth.service';
 import { AuthenticationService } from '../service/authentication.service';
 import { UserService } from '../service/user.service';
 
@@ -24,11 +25,18 @@ export class ChannelComponent implements OnInit {
   post: Post = new Post();
   allPosts: any = [];
 
+  thread: boolean = false;
+  threadId: string = ''
+  threadPost: Post = new Post();
+  threadAnswers: any = [];
+  answer: Post = new Post();
+
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
 
   constructor(
     public authService: AuthenticationService,
+    private authS: AuthService,
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     public userService: UserService,
@@ -42,13 +50,14 @@ export class ChannelComponent implements OnInit {
       this.checkCurrentUser();
       this.getChannel();
       this.getAllPosts();
+      
     })
 
   }
 
   checkCurrentUser() {
     this.auth.currentUser.then((result: any) => {
-      
+
 
     });
 
@@ -78,13 +87,16 @@ export class ChannelComponent implements OnInit {
       })
   }
 
+
+
   newPost() {
 
     this.post.userId = this.authService.currentUserId
+  
 
     this.post.time = Date.now();
-    this.checkUser();
-    this.checkDate();
+    this.post.userImg = this.checkUser();
+    this.post.date = this.checkDate();
 
 
     this.firestore
@@ -102,16 +114,17 @@ export class ChannelComponent implements OnInit {
 
       if (this.post.userId == uid) {
         this.post.userName = this.userService.allUsers[i].displayName
-        this.checkUserImg(i)
+        return this.checkUserImg(i)
+
       }
     }
   }
 
   checkUserImg(i) {
     if (this.userService.allUsers[i].photoURL == undefined) {
-      this.post.userImg = 'assets/img/user-placeholder.png';
+      return 'assets/img/user-placeholder.png';
     } else {
-      this.post.userImg = this.userService.allUsers[i].photoURL;
+      return this.userService.allUsers[i].photoURL;
     }
   }
 
@@ -122,10 +135,9 @@ export class ChannelComponent implements OnInit {
       year: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
     });
 
-    this.post.date = formatDate.format(new Date())
+    return formatDate.format(new Date())
   }
 
 
@@ -142,7 +154,67 @@ export class ChannelComponent implements OnInit {
   }
 
 
+  answerToPost(id) {
+    console.log('answer', id, this.allPosts);
+    this.thread = true;
+    this.threadId = id
 
+    this.allPosts.forEach(thread => {
+      if (id == thread.customIdName) {
+        this.threadPost = thread;
+        console.log(this.threadPost);
+        this.getAllAnswers(id);
+
+      }
+
+    });
+  }
+
+  getAllAnswers(id) {
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .collection('posts')
+      .doc(id)
+      .collection('threads', ref =>
+        ref.orderBy('time', 'asc'))
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.threadAnswers = changes;
+        console.log(this.threadAnswers)
+      })
+  }
+
+  newAnswer() {
+    console.log('answer')
+    this.answer.userId = this.authService.currentUserId
+
+    this.answer.time = Date.now();
+    this.checkUser();
+    this.answer.userImg = this.checkUser();
+    this.answer.date = this.checkDate();
+    console.log(this.checkUser)
+
+
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .collection('posts')
+      .doc(this.threadId)
+      .collection('threads')
+      .add(this.answer.toJSON())
+      .then(res => {
+        this.answer.content = ''
+
+
+        this.getAllAnswers(this.threadId)
+      })
+
+  }
+
+  closeThread() {
+    this.thread = false;
+  }
 
 
 
