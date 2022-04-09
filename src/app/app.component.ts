@@ -45,16 +45,16 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    this.authS.testManuel()
+    this.loadAllChannels()
 
 
-    this.loadAllChannels();
 
     this.firestore
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
         this.users = changes;
+
       })
 
     this.firestore
@@ -71,9 +71,10 @@ export class AppComponent {
       .subscribe((changes: any) => {
         this.allMessages = changes;
       })
-    
-
   }
+
+
+
 
   loadAllChannels() {
     this.firestore
@@ -82,9 +83,10 @@ export class AppComponent {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
-
+        console.log(this.allChannels)
       })
   }
+
 
 
   logout() {
@@ -94,7 +96,6 @@ export class AppComponent {
   }
 
   openDialog() {
-    this.authS.checkCurrentUser();
     this.dialog.open(DialogAddChannelComponent)
   }
 

@@ -35,8 +35,8 @@ export class ChannelComponent implements OnInit {
   position = new FormControl(this.positionOptions[0]);
 
   constructor(
+    public authS: AuthService,
     public authService: AuthenticationService,
-    private authS: AuthService,
     private route: ActivatedRoute,
     public firestore: AngularFirestore,
     public userService: UserService,
@@ -47,19 +47,10 @@ export class ChannelComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
-      this.checkCurrentUser();
       this.getChannel();
       this.getAllPosts();
-
+      
     })
-
-  }
-
-  checkCurrentUser() {
-    this.auth.currentUser.then((result: any) => {
-
-
-    });
 
   }
 
@@ -75,8 +66,6 @@ export class ChannelComponent implements OnInit {
       })
   }
 
-
-
   getChannel() {
     this.firestore
       .collection('channels')
@@ -88,16 +77,12 @@ export class ChannelComponent implements OnInit {
   }
 
 
-
-  newPost() {
-
-    this.post.userId = this.authService.currentUserId
-
-
+  async newPost() {
+    this.post.userId = await this.authS.checkUserId();
+    this.post.userName = await this.authS.checkUserDisplayName();
+    this.post.userImg = await this.authS.checkUserPhotoUrl();
     this.post.time = Date.now();
-    this.post.userImg = this.checkUser();
     this.post.date = this.checkDate();
-
 
     this.firestore
       .collection('channels')
@@ -105,28 +90,6 @@ export class ChannelComponent implements OnInit {
       .collection('posts')
       .add(this.post.toJSON());
     this.post.content = ''
-  }
-
-  checkUser() {
-
-    this.post.userId = this.authService.currentUserId
-    for (let i = 0; i < this.userService.allUsers.length; i++) {
-      let uid: string = this.userService.allUsers[i].uid;
-
-      if (this.post.userId == uid) {
-        this.post.userName = this.userService.allUsers[i].displayName
-        return this.checkUserImg(i)
-
-      }
-    }
-  }
-
-  checkUserImg(i) {
-    if (this.userService.allUsers[i].photoURL == undefined) {
-      return 'assets/img/user-placeholder.png';
-    } else {
-      return this.userService.allUsers[i].photoURL;
-    }
   }
 
   checkDate() {
@@ -140,8 +103,6 @@ export class ChannelComponent implements OnInit {
 
     return formatDate.format(new Date())
   }
-
-
 
   deletePost(id) {
     this.firestore
@@ -182,22 +143,16 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.threadAnswers = changes;
-        console.log(this.threadAnswers)
+
       })
   }
 
-  newAnswer() {
-    this.authS.testManuel();
-    this.answer.userId = this.authService.currentUserId
-    this.authS.checkDisplayName()
-    this.answer.userName = 'this.authS.testManuel();'
-
+  async newAnswer() {
+    this.answer.userId = await this.authS.checkUserId();
+    this.answer.userName = await this.authS.checkUserDisplayName();
+    this.answer.userImg = await this.authS.checkUserPhotoUrl();
     this.answer.time = Date.now();
-    this.checkUser();
-    this.answer.userImg = this.checkUser();
     this.answer.date = this.checkDate();
-    console.log(this.checkUser)
-
 
     this.firestore
       .collection('channels')
@@ -208,19 +163,13 @@ export class ChannelComponent implements OnInit {
       .add(this.answer.toJSON())
       .then(res => {
         this.answer.content = ''
-
-
         this.getAllAnswers(this.threadId)
       })
-
   }
 
   closeThread() {
     this.thread = false;
   }
-
-
-
 
   openDialog(id, content) {
 

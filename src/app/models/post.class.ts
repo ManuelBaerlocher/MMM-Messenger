@@ -1,12 +1,12 @@
 export class Post {
-    userId: string;
-    userName: string;
-    userImg: string;
+    userId: unknown;
+    userName: unknown;
+    userImg: unknown;
     content: string;
     img: string;
     code: string;
     time: number;
-    date:string;
+    date: string;
     postId: string;
     edit: string
 
@@ -23,7 +23,7 @@ export class Post {
         this.time = obj ? obj.time : '';
         this.date = obj ? obj.date : '';
         this.postId = obj ? obj.postId : '';
-        this.edit = obj? obj.edit : '';
+        this.edit = obj ? obj.edit : '';
 
     }
 

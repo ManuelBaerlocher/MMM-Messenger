@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
-import { SnackBarLoginComponent } from '../snack-bar-login/snack-bar-login.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class AuthService {
   constructor(
     public auth: AngularFireAuth,
     private router: Router,
-    private _snackBar: MatSnackBar
+
   ) { }
 
 
@@ -32,35 +31,63 @@ export class AuthService {
 
 
   checkCurrentUser() {
-
+    let name: string = ''
     this.auth.currentUser.then((result: any) => {
-      result.displayName
-      console.log('user', result)
-      return result.displayName;
-    });
+      name = result.displayName
 
+    });
+    return name
   }
 
-  checkDisplayName() {
-    this.auth.onAuthStateChanged((user: any) => {
-      if (user) {
-        user.updateDisplayName(user)
-        console.log(user)
-        return user._delegate.displayName
-      } else {
-        return "Username fehlt"
-      }
-    });
-  }
-
-  testManuel() {
-    this.auth.currentUser.then((test) => {
-      console.log('test', test);
-
+  checkUserDisplayName() {
+    return new Promise((resolve) => {
+      this.auth.onAuthStateChanged((user: any) => {
+        if (user) {
+          console.log(user)
+          resolve(user.displayName)
+        } else {
+        }
+      });
     })
+  }
+
+  checkUserId() {
+    return new Promise((resolve) => {
+      this.auth.onAuthStateChanged((user: any) => {
+        if (user) {
+          resolve(user.uid)
+        } else {
+        }
+      });
+    })
+  }
+
+  checkUserPhotoUrl() {
+    return new Promise((resolve) => {
+      this.auth.onAuthStateChanged((user: any) => {
+        if (user) {
+          if (user.photoURL == null) {
+            resolve('assets/img/user-placeholder.png')
+          } else {
+            resolve(user.photoURL)
+          }
+        } else {
+        }
+      });
+    })
+  }
 
 
 
+  checkUser(id) {
+    return new Promise((resolve) => {
+      this.auth.onAuthStateChanged((user: any) => {
+        if (user) {
+          resolve(id)
+        } else {
+        }
+      });
+    })
   }
 
   logout() {
@@ -91,21 +118,4 @@ export class AuthService {
 
     });
   }
-
-  // mail(email, password) {
-
-  //   this.auth.signInWithEmailAndPassword(email, password).then((result: any) => {
-  //     this.router.navigate([''])
-  //     this._snackBar.openFromComponent(SnackBarLoginComponent, {
-  //       data: 'Welcome ' + result.user.displayName,
-  //       duration: 5000,
-  //     });
-  //   })
-  //     .catch((error) => {
-  //       this._snackBar.openFromComponent(SnackBarLoginComponent, {
-  //         data: error.code,
-  //         duration: 5000,
-  //       });
-  //     });
-  // }
 }
