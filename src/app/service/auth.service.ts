@@ -18,11 +18,11 @@ export class AuthService {
   ) { }
 
 
-  changeUserName() {
+  changeUserName(name) {
     this.auth.currentUser.then((result: any) => {
       result.updateProfile({
-        displayName: "Manuel Bärlocher",
-        photoURL: "https://firebasestorage.googleapis.com/v0/b/mmm-messenger.appspot.com/o/images%2Fprofile%2FLsqPMQVJ1ZhVcKcHAAxkq9vX9qS2?alt=media&token=40ac35d5-9f28-47bc-8bce-df9896eea157"
+        displayName: name,
+        // photoURL: "https://firebasestorage.googleapis.com/v0/b/mmm-messenger.appspot.com/o/images%2Fprofile%2FLsqPMQVJ1ZhVcKcHAAxkq9vX9qS2?alt=media&token=40ac35d5-9f28-47bc-8bce-df9896eea157"
       }).then((result: any) => {
         this.checkCurrentUser()
       });

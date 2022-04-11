@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { concatMap, tap } from 'rxjs';
 import { ProfileUser } from '../models/user-profile';
+import { AuthService } from '../service/auth.service';
 import { ImageUploadService } from '../service/image-upload.service';
 import { UsersService } from '../service/users.service';
 
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private toast: HotToastService,
     private userService: UsersService,
+    private authS: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,8 @@ export class ProfileComponent implements OnInit {
       .subscribe((user) => {
         this.profileForm.patchValue({ ...user });
       });
+
+
   }
 
   uploadImage(event: any, user: ProfileUser) {
@@ -63,6 +67,8 @@ export class ProfileComponent implements OnInit {
       })
     )
     .subscribe();
+    console.log(profileData.displayName)
+    this.authS.changeUserName(profileData.displayName)
   }
 
 }
