@@ -9,6 +9,8 @@ export class Post {
     date: string;
     postId: string;
     edit: string
+    lastAnswer: string;
+    answers: number;
 
 
 
@@ -24,6 +26,8 @@ export class Post {
         this.date = obj ? obj.date : '';
         this.postId = obj ? obj.postId : '';
         this.edit = obj ? obj.edit : '';
+        this.lastAnswer = obj ? obj.lastAnswer : '';
+        this.answers = obj ? obj.answers : '';
 
     }
 
@@ -38,7 +42,9 @@ export class Post {
             time: this.time,
             date: this.date,
             postId: this.postId,
-            edit: this.edit
+            edit: this.edit,
+            lastAnswer: this.lastAnswer,
+            answers: this.answers,
         };
     }
 }

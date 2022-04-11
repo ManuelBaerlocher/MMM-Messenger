@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
@@ -30,6 +30,7 @@ export class ChannelComponent implements OnInit {
   threadPost: Post = new Post();
   threadAnswers: any = [];
   answer: Post = new Post();
+  messageHeadHeight = 382;
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -44,13 +45,20 @@ export class ChannelComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
+
+  @ViewChild('messeageHead')
+  messeageHead: ElementRef;
+
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.channelId = paramMap.get('id');
       this.getChannel();
       this.getAllPosts();
-      
+
     })
+
+
 
   }
 
@@ -63,6 +71,8 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allPosts = changes;
+        console.log(this.allPosts);
+
       })
   }
 
@@ -132,6 +142,12 @@ export class ChannelComponent implements OnInit {
     });
   }
 
+  testManuel() {
+    this.messageHeadHeight = 332 + this.messeageHead.nativeElement.offsetHeight;
+
+    console.log('Height: ' + this.messageHeadHeight);
+  }
+
   getAllAnswers(id) {
     this.firestore
       .collection('channels')
@@ -143,6 +159,7 @@ export class ChannelComponent implements OnInit {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.threadAnswers = changes;
+        this.testManuel();
 
       })
   }
@@ -153,6 +170,9 @@ export class ChannelComponent implements OnInit {
     this.answer.userImg = await this.authS.checkUserPhotoUrl();
     this.answer.time = Date.now();
     this.answer.date = this.checkDate();
+    this.post.lastAnswer = this.answer.date;
+    this.post.answers++;
+    this.answer.answers = this.post.answers;
 
     this.firestore
       .collection('channels')
@@ -164,6 +184,23 @@ export class ChannelComponent implements OnInit {
       .then(res => {
         this.answer.content = ''
         this.getAllAnswers(this.threadId)
+        this.editPost();
+      })
+  }
+
+  editPost() {
+    this.post.edit = ', Edited'
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .collection('posts')
+      .doc(this.threadId)
+      .update({
+        lastAnswer: this.post.lastAnswer,
+        answers: this.post.answers
+      })
+      .then(() => {
+
       })
   }
 

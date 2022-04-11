@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Channel } from '../models/channel.class';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-add-channel',
@@ -11,7 +12,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DialogAddChannelComponent implements OnInit {
   channel = new Channel();
 
-  constructor(public dialogRef: MatDialogRef<DialogAddChannelComponent>, private firestore: AngularFirestore) { }
+  constructor(
+    public dialogRef: MatDialogRef<DialogAddChannelComponent>,
+    private firestore: AngularFirestore,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -26,8 +31,9 @@ export class DialogAddChannelComponent implements OnInit {
     this.firestore
       .collection('channels')
       .add(this.channel.toJSON())
-      .then(() => {
+      .then((result) => {
         this.dialogRef.close();
+        this.router.navigate(['channel/' + result.id])
       });
   }
 }

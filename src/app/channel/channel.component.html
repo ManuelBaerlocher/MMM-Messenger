@@ -47,7 +47,7 @@
                             <div>
                                 {{ post.content }}
                             </div>
-                            <div>7 Answers, Last Answert 01.04.2022, 20.50</div>
+                            <div *ngIf="post.answers">{{post.answers}} Answers, Last Answert {{post.lastAnswer}}</div>
                         </div>
                     </div>
                     <mat-divider></mat-divider>
@@ -95,7 +95,7 @@
                 </div>
                 <mat-divider></mat-divider>
                 <div>
-                    <div class="post-container">
+                    <div class="post-container" #messeageHead>
                         <div class="post-left-container">
                             <img class="user-icon" src='{{ threadPost.userImg }}'>
                         </div>
@@ -114,61 +114,62 @@
                         </div>
                     </div>
                 </div>
+                <div>{{threadPost.answers}} Answers</div>
                 <mat-divider></mat-divider>
-                <div class="thread-mainContainer">
+                <div class="thread-mainContainer" style="height: calc(100vh - {{this.messageHeadHeight}}px )!important">
 
-                    <div *ngFor="let answer of threadAnswers let i = index">
+                    <div *ngFor=" let answer of threadAnswers let i=index">
 
-                        <div class="post-container">
-                            <div class="post-left-container">
-                                <img class="user-icon" src='{{ answer.userImg }}'>
-                            </div>
-                            <div class="post-right-container">
-                                <div class="post-head">
-                                    <div class="post-head-left">
-                                        <div class="post-user">{{ answer.userName }}</div>
-                                        <span class="post-date">{{ answer.date }}{{ post.edit}}</span>
-                                    </div>
-                                    <button *ngIf="this.authService.currentUserId == post.userId" class="menu-button"
-                                        mat-icon-button [matMenuTriggerFor]="menu" color="primary">
-                                        <mat-icon>menu</mat-icon>
+                    <div class="post-container">
+                        <div class="post-left-container">
+                            <img class="user-icon" src='{{ answer.userImg }}'>
+                        </div>
+                        <div class="post-right-container">
+                            <div class="post-head">
+                                <div class="post-head-left">
+                                    <div class="post-user">{{ answer.userName }}</div>
+                                    <span class="post-date">{{ answer.date }}{{ post.edit}}</span>
+                                </div>
+                                <button *ngIf="this.authService.currentUserId == post.userId" class="menu-button"
+                                    mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+                                    <mat-icon>menu</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+
+                                    <button (click)="openDialog(answer.customIdName, post.content)" mat-menu-item>
+                                        <mat-icon color="primary">edit</mat-icon>
+                                        <span>Edit</span>
                                     </button>
-                                    <mat-menu #menu="matMenu">
-
-                                        <button (click)="openDialog(answer.customIdName, post.content)" mat-menu-item>
-                                            <mat-icon color="primary">edit</mat-icon>
-                                            <span>Edit</span>
-                                        </button>
-                                        <button mat-menu-item (click)="deletePost(answer.customIdName)">
-                                            <mat-icon color="primary">delete</mat-icon>
-                                            <span>Remove</span>
-                                        </button>
-                                    </mat-menu>
-                                </div>
-                                <div>
-                                    {{ answer.content }}
-                                </div>
+                                    <button mat-menu-item (click)="deletePost(answer.customIdName)">
+                                        <mat-icon color="primary">delete</mat-icon>
+                                        <span>Remove</span>
+                                    </button>
+                                </mat-menu>
+                            </div>
+                            <div>
+                                {{ answer.content }}
                             </div>
                         </div>
-                        <mat-divider></mat-divider>
                     </div>
+                    <mat-divider></mat-divider>
                 </div>
-            </mat-list>
+        </div>
+        </mat-list>
 
 
-            <mat-card class="input-Container">
-                <form class="example-form">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Message</mat-label>
-                        <input (keyup.enter)="newAnswer()" matInput #message maxlength="256"
-                            placeholder="Ex. I need help with..." [(ngModel)]="answer.content" name="newmassage">
-                        <mat-hint align="start"> </mat-hint>
-                        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
-                    </mat-form-field>
-                </form>
-                <div class="send-button">
-                    <div>
-                        <!-- <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
+        <mat-card class="input-Container">
+            <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Message</mat-label>
+                    <input (keyup.enter)="newAnswer()" matInput #message maxlength="256"
+                        placeholder="Ex. I need help with..." [(ngModel)]="answer.content" name="newmassage">
+                    <mat-hint align="start"> </mat-hint>
+                    <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+                </mat-form-field>
+            </form>
+            <div class="send-button">
+                <div>
+                    <!-- <button mat-icon-button color="primary" matTooltip="Add Img" [matTooltipPosition]="position.value"
                         matTooltipHideDelay="100">
                         <mat-icon>photo</mat-icon>
     
@@ -178,11 +179,11 @@
                         <mat-icon>code</mat-icon>
     
                     </button> -->
-                    </div>
-                    <button mat-raised-button color="primary" (click)="newAnswer()">Send</button>
                 </div>
-            </mat-card>
-        </div>
+                <button mat-raised-button color="primary" (click)="newAnswer()">Send</button>
+            </div>
+        </mat-card>
     </div>
+</div>
 
 </div>
