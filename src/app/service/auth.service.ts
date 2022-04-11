@@ -33,10 +33,10 @@ export class AuthService {
   checkCurrentUser() {
     let name: string = ''
     this.auth.currentUser.then((result: any) => {
-      name = result.displayName
+
 
     });
-    return name
+
   }
 
   checkUserDisplayName() {
