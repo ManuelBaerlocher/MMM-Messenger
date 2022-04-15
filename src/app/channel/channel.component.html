@@ -47,7 +47,7 @@
                             <div>
                                 {{ post.content }}
                             </div>
-                            <div *ngIf="post.answers">{{post.answers}} Answers, Last Answert {{post.lastAnswer}}</div>
+                            <div *ngIf="post.answers">{{post.answers}} Answers, Last Answer {{post.lastAnswer}}</div>
                         </div>
                     </div>
                     <mat-divider></mat-divider>
@@ -105,8 +105,6 @@
                                     <div class="post-user">{{ threadPost.userName }}</div>
                                     <span class="post-date">{{ threadPost.date }}{{ threadPost.edit}}</span>
                                 </div>
-
-
                             </div>
                             <div>
                                 {{ threadPost.content }}

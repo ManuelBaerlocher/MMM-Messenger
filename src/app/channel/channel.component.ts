@@ -93,6 +93,7 @@ export class ChannelComponent implements OnInit {
     this.post.userImg = await this.authS.checkUserPhotoUrl();
     this.post.time = Date.now();
     this.post.date = this.checkDate();
+    this.post.answers = 0;
 
     this.firestore
       .collection('channels')
@@ -127,7 +128,6 @@ export class ChannelComponent implements OnInit {
 
 
   answerToPost(id) {
-    console.log('answer', id, this.allPosts);
     this.thread = true;
     this.threadId = id
 
@@ -145,7 +145,7 @@ export class ChannelComponent implements OnInit {
   testManuel() {
     this.messageHeadHeight = 332 + this.messeageHead.nativeElement.offsetHeight;
 
-    console.log('Height: ' + this.messageHeadHeight);
+
   }
 
   getAllAnswers(id) {
@@ -168,11 +168,16 @@ export class ChannelComponent implements OnInit {
     this.answer.userId = await this.authS.checkUserId();
     this.answer.userName = await this.authS.checkUserDisplayName();
     this.answer.userImg = await this.authS.checkUserPhotoUrl();
+    this.answerToPost(this.threadId)
     this.answer.time = Date.now();
     this.answer.date = this.checkDate();
     this.post.lastAnswer = this.answer.date;
-    this.post.answers++;
-    this.answer.answers = this.post.answers;
+
+    console.log('threadPost', this.threadPost.answers);
+
+
+    this.post.answers = this.threadPost.answers + 1;
+    // this.answer.answers = this.post.answers;
 
     this.firestore
       .collection('channels')
@@ -183,13 +188,14 @@ export class ChannelComponent implements OnInit {
       .add(this.answer.toJSON())
       .then(res => {
         this.answer.content = ''
+        this.updatePost();
         this.getAllAnswers(this.threadId)
-        this.editPost();
+
       })
   }
 
-  editPost() {
-    this.post.edit = ', Edited'
+  updatePost() {
+    // this.post.edit = ', Edited'
     this.firestore
       .collection('channels')
       .doc(this.channelId)
@@ -200,6 +206,7 @@ export class ChannelComponent implements OnInit {
         answers: this.post.answers
       })
       .then(() => {
+        console.log(this.threadId);
 
       })
   }
