@@ -168,16 +168,14 @@ export class ChannelComponent implements OnInit {
     this.answer.userId = await this.authS.checkUserId();
     this.answer.userName = await this.authS.checkUserDisplayName();
     this.answer.userImg = await this.authS.checkUserPhotoUrl();
-    this.answerToPost(this.threadId)
+    this.answerToPost(this.threadId);
     this.answer.time = Date.now();
     this.answer.date = this.checkDate();
     this.post.lastAnswer = this.answer.date;
 
-    console.log('threadPost', this.threadPost.answers);
+    this.post.answers = this.threadPost.answers;
+    this.post.answers++
 
-
-    this.post.answers = this.threadPost.answers + 1;
-    // this.answer.answers = this.post.answers;
 
     this.firestore
       .collection('channels')
@@ -191,11 +189,11 @@ export class ChannelComponent implements OnInit {
         this.updatePost();
         this.getAllAnswers(this.threadId)
 
+
       })
   }
 
   updatePost() {
-    // this.post.edit = ', Edited'
     this.firestore
       .collection('channels')
       .doc(this.channelId)
