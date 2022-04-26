@@ -9,6 +9,7 @@ import { Message } from '../models/message.class';
 import { Post } from '../models/post.class';
 import { AuthenticationService } from '../service/authentication.service';
 import { UserService } from '../service/user.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 
 
@@ -27,7 +28,8 @@ export class MessageComponent implements OnInit {
   chatId: any = '';
   allPosts: any = [];
   users: any = [];
-  photoUrl: string = ''
+  photoUrl: string = '';
+  filePath:String;
   
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
@@ -39,6 +41,7 @@ export class MessageComponent implements OnInit {
     public firestore: AngularFirestore,
     public userService: UserService,
     public dialog: MatDialog,
+    public storage: AngularFireStorage,
   ) { }
 
   ngOnInit(): void {
@@ -112,6 +115,7 @@ export class MessageComponent implements OnInit {
     this.post.time = Date.now();
     this.checkUser();
     this.checkDate();
+
 
     this.firestore
       .collection('messages')
@@ -243,6 +247,12 @@ export class MessageComponent implements OnInit {
     dialog.componentInstance.function = 'messages'
     dialog.componentInstance.channelId = this.chatId
 
+  }
+
+  uploadImage(event) {
+    const file = event.target.files[0];
+    const filePath = '/postImages/image' + Math.random()*1000000;
+    const task = this.storage.upload(filePath, file);
   }
 }
 

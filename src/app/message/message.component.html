@@ -76,7 +76,7 @@
                             <mat-icon>photo</mat-icon>
                         </button>
                     </div>
-                    <input #inputField type="file" hidden >
+                    <input #inputField type="file" hidden (change)="uploadImage($event)" accept=".png,.jpg" >
 
                 </button> 
                 <button mat-icon-button  color="primary" matTooltip="Add Code" [matTooltipPosition]="position.value"

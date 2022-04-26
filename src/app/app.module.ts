@@ -28,6 +28,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 // Angular Firebase \\
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
@@ -95,6 +96,7 @@ import { DialogAddDisplayNameComponent } from './dialog-add-display-name/dialog-
     // Angular Firebase \\
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

@@ -11,6 +11,7 @@ export class Post {
     edit: string
     lastAnswer: string;
     answers: number;
+    imgPath:string;
 
 
 
@@ -28,6 +29,7 @@ export class Post {
         this.edit = obj ? obj.edit : '';
         this.lastAnswer = obj ? obj.lastAnswer : '';
         this.answers = obj ? obj.answers : '';
+        this.imgPath = obj ? obj.imgPath : '';
 
     }
 
@@ -45,6 +47,7 @@ export class Post {
             edit: this.edit,
             lastAnswer: this.lastAnswer,
             answers: this.answers,
+            imgPath: this.imgPath,
         };
     }
 }
