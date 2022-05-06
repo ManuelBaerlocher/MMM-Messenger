@@ -58,6 +58,7 @@
 
     <mat-card class="input-Container">
         <form class="example-form">
+            <img src=" {{this.postImageUrl}}">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Message</mat-label>
                 <input (keyup.enter)="newPost()" matInput #message maxlength="256" placeholder="Ex. I need help with..."

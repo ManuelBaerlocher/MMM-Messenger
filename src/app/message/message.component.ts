@@ -10,7 +10,8 @@ import { Post } from '../models/post.class';
 import { AuthenticationService } from '../service/authentication.service';
 import { UserService } from '../service/user.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -29,8 +30,8 @@ export class MessageComponent implements OnInit {
   allPosts: any = [];
   users: any = [];
   photoUrl: string = '';
-  filePath:String;
-  
+  filePath:string;
+  postImageUrl;
 
   positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
   position = new FormControl(this.positionOptions[0]);
@@ -248,12 +249,31 @@ export class MessageComponent implements OnInit {
     dialog.componentInstance.channelId = this.chatId
 
   }
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
 
   uploadImage(event) {
     const file = event.target.files[0];
     const filePath = '/postImages/image' + Math.random()*1000000;
+    const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
+
+     // observe percentage changes
+     this.uploadPercent = task.percentageChanges();
+     // get notified when the download URL is available
+     task.snapshotChanges().pipe(
+         finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(url =>{
+            this.post.images.push(url);
+          } )
+         })
+      )
+     .subscribe()
+   }
   }
-}
+
+
+
 
 
